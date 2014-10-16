@@ -1,0 +1,91 @@
+﻿<p>
+    <center>
+        <span style="font-size:150%;">Jaipur Traffic Police</span><br />
+        <tpl if="ChallanSubType==111">
+            Challan-cum-Receipt
+            <tpl else>
+                Challan
+            </tpl>
+            <br />Duplicate
+    </center>
+</p>
+<p>
+    Challan No.: {ChallanNumber} <br />
+    Date: {[Ext.Date.format(values.OffenseDate, 'd/m/Y g:i A')]}<br />
+    Location: {NearestLocation}<br />
+    Device ID: {DeviceId}
+</p>
+<hr />
+<p>
+    Driver: {DriverName} {GuardianName}<br />
+    Address: {AddressLine1}, {AddressLine2 }<br />
+    D/L No. {LicenseNumber}<br />
+    Contact No. {ContactNumber}
+</p>
+<hr />
+<p>
+    <b>Regn No. {RegNo}</b><br />
+    Vehicle Type: {VehicleTypeDesc}<br />
+    Vehicle: {VehicleMake} {VehicleModel}
+</p>
+<hr />
+<p>
+    The driver was driving above mentioned vehicle and has violated traffic rule which is punishable under M.V. Act 1988/Raj.M.V. Act 1990:
+</p>
+<p>
+    <tpl for="Charges">
+        <b>{#}. {ChargeDescription} ({ChargeCode})</b> <br/>
+    </tpl>
+</p>
+<p>
+    Total Fine Rs. {TotalFine}/-
+</p>
+<tpl if="Comments.length &gt; 0">
+    <p>
+        Remarks: {Comments}
+    </p>
+</tpl>
+<tpl if="ChallanSubType==111">
+    <p>
+        Offender has agreed to pay a composition fee of Rs. {TotalFine}/- for violation u/s 200 of Motor Vehicle Act 1988. Fine has been collected.
+    </p>
+    <hr />
+</tpl>
+<tpl if="ChallanSubType==112">
+    <p>
+        The prosecution has to be carried out against above mentioned driver under the M.V. Act 1988/Rajasthan M.V. Act 1990 so
+        <tpl if="VehicleSeized=='Y'">
+            {VehicleCompoundedby} has seized vehicle and deposited at {PoliceStation} police station.
+        <tpl else>
+            officer has seized following documents:
+        </tpl>
+    </p>
+    <tpl if="Documents.length &gt; 0">
+        <p>
+            <tpl for="Documents">
+                {#}. {.}<br />
+            </tpl>
+        </p>
+    </tpl>
+    <hr /><br />
+    <p>
+        <center>
+            <b>BOND PAPER</b><br />
+            <b>TO BE PRESENT IN COURT</b> <br />
+            <b>(Section 170 CRPC)(Rule 262)</b>
+        </center>
+    </p>
+    <p>
+        <tpl if="VehicleSeized=='Y'">
+            This seized vehicle can be 
+        <tpl else>
+            These seized documents can be
+        </tpl>
+            collected from {VehicleCompoundedat} till {[Ext.Date.format(values.CourtSentDate, 'd/m/Y')]} ({CourtDelay} days)
+            thereafter you have to be present in {CourtRoom} court for enquiry of the offence committed by you failing to do so will result in to deposition of Rs.{TreasuryAmount} to treasury by you.
+    </p>
+</tpl>
+<img src="data:image/bmp;base64,{Sign.OffenderSignature}" height="80" /> <br />
+Offender <br /><br />
+<img src="data:image/bmp;base64,{Sign.OfficerSignature}" height="80" /> <br />
+{OfficerFirstName} {OfficerLastName}

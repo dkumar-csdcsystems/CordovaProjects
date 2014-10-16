@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html manifest="" lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>AmandaInspector</title>
+    <style type="text/css">
+         /**
+         * Example of an initial loading indicator.
+         * It is recommended to keep this as minimal as possible to provide instant feedback
+         * while other resources are still being loaded for the first time
+         */
+        html, body {
+            height: 100%;
+            background-color: #1985D0
+        }
+
+        #appLoadingIndicator {
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            text-align: center;
+            width: 100%;
+            height: 30px;
+            -webkit-animation-name: appLoadingIndicator;
+            -webkit-animation-duration: 0.5s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: linear;
+        }
+
+        #appLoadingIndicator > * {
+            background-color: #FFFFFF;
+            display: inline-block;
+            height: 30px;
+            -webkit-border-radius: 15px;
+            margin: 0 5px;
+            width: 30px;
+            opacity: 0.8;
+        }
+
+        @-webkit-keyframes appLoadingIndicator{
+            0% {
+                opacity: 0.8
+            }
+            50% {
+                opacity: 0
+            }
+            100% {
+                opacity: 0.8
+            }
+        }
+    </style>
+    <!-- The line below must be kept intact for Sencha Command to build your application -->
+    <script type="text/javascript">(function(f){function l(g,d){var a=document.createElement("meta");a.setAttribute("name",g);a.setAttribute("content",d);n.appendChild(a)}var n=f.document.head,d=f.Ext;"undefined"==typeof d&&(f.Ext=d={});d.blink=function(g){var f=g.js||[],g=g.css||[],a,j,b,h,m;if(navigator.userAgent.match(/IEMobile\/10\.0/)){a=document.createElement("style");a.appendChild(document.createTextNode("@media screen and (orientation: portrait) {@-ms-viewport {width: 320px !important;}}@media screen and (orientation: landscape) {@-ms-viewport {width: 560px !important;}}"));
+document.getElementsByTagName("head")[0].appendChild(a)}l("viewport","width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no");l("apple-mobile-web-app-capable","yes");l("apple-touch-fullscreen","yes");d.microloaded=true;var k=window.Ext.filterPlatform=function(a){function b(a){var c=/Mobile(\/|\s)/.test(a);return/(iPhone|iPod)/.test(a)||!/(Silk)/.test(a)&&/(Android)/.test(a)&&(/(Android 2)/.test(a)||c)||/(BlackBerry|BB)/.test(a)&&c||/(Windows Phone)/.test(a)}
+function g(a){return!b(a)&&(/iPad/.test(a)||/Android|Silk/.test(a)||/(RIM Tablet OS)/.test(a)||/MSIE 10/.test(a)&&/; Touch/.test(a))}var e=false,c=navigator.userAgent,i,d,a=[].concat(a);i=window.location.search.substr(1).split("&");d={};var f;for(f=0;f<i.length;f++){var h=i[f].split("=");d[h[0]]=h[1]}if(i=d.platform)return a.indexOf(i)!=-1;i=0;for(d=a.length;i<d;i++){switch(a[i]){case "phone":e=b(c);break;case "tablet":e=g(c);break;case "desktop":e=!b(c)&&!g(c);break;case "ios":e=/(iPad|iPhone|iPod)/.test(c);
+break;case "android":e=/(Android|Silk)/.test(c);break;case "blackberry":e=/(BlackBerry|BB)/.test(c);break;case "safari":e=/Safari/.test(c)&&!/(BlackBerry|BB)/.test(c);break;case "chrome":e=/Chrome/.test(c);break;case "ie10":e=/MSIE 10/.test(c);break;case "windows":e=/MSIE 10/.test(c)||/Trident/.test(c);break;case "tizen":e=/Tizen/.test(c);break;case "firefox":e=/Firefox/.test(c)}if(e)return true}return false};a=0;for(j=g.length;a<j;a++){b=g[a];if(typeof b!="string"){h=b.platform;exclude=b.exclude;
+m=b.theme;b=b.path}if(h){if(!k(h)||k(exclude))continue;d.theme={name:m||"Default"}}document.write('<link rel="stylesheet" href="'+b+'">')}a=0;for(j=f.length;a<j;a++){b=f[a];if(typeof b!="string"){h=b.platform;exclude=b.exclude;b=b.path}(!h||k(h)&&!k(exclude))&&document.write('<script src="'+b+'"><\/script>')}}})(this);;Ext.blink({"id":"4272ae81-995a-4090-8119-d6c6dbf9d6f3","js":[{"path":"app.js","bundle":true,"update":"delta","type":"js"}],"css":[{"path":"resources/css/sencha-touch.css","update":"delta","type":"css"},{"path":"resources/css/custom.css","update":"delta","type":"css"}]})</script>
+</head>
+<body>
+    <div id="appLoadingIndicator">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <!--<script type="text/javascript" src="cordova-2.2.0.js"></script>
+        <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log("Device Name: " + device.name);
+            console.log("Device Platform: " + device.platform);
+            console.log("Device Version: " + device.version);
+        }
+    </script>-->
+    
+    <script type="text/javascript">
+        function f_toggle(ans) {
+            var answer = "ans" + ans;
+            var question = "ques" + ans;
+
+    	    if (document.getElementById(answer).style.display == "none" )  {
+    		    document.getElementById(answer).style.display = "";
+    		    document.getElementById(question).src = "resources/help/minus.gif";
+    	    } else {
+    		    document.getElementById(answer).style.display = "none";
+    		    document.getElementById(question).src = "resources/help/plus.gif";
+    	    }
+        }
+        function f_over(argId){
+    	    document.getElementById(argId).style.color = "#FFFFFF";
+
+        }
+        function f_out(argId){
+    	    document.getElementById(argId).style.color = "#5B5C5D";
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<p style="text-align:center; font-size:150%">Jaipur<br />Traffic Police</p>
+<hr />
+<p style="font-size: larger">Challan No.: {ChallanNumber}</p>
+<hr />
+<p>
+    <b>DL. No.: {offender.DrivingLicense}</b><br />
+    Driver: {offender.FirstName} {offender.LastName}<br />
+    Date of Birth: {[Ext.Date.format(values.offender.BirthDate, 'd/m/Y')]}
+</p>
+<hr />
+<p>
+    <b>Reg. No.: {vehicle.VIN}</b><br />
+    Type: {vehicle.BodyType}<br />
+    Make: {vehicle.Make}&nbsp;&nbsp;&nbsp;&nbsp;Model: {vehicle.Model}<br />
+    Reg. Year: {vehicle.Year}
+</p>
+<hr />
+<p>The driver was driving above mentioned vehicle and has violated traffic rule mentioned under M.V.Act 1988.<br />Details are given below:
+<tpl for="charges">
+    <br /><b>{#}. {[values.get("Description")]} ({[values.get("ChargeCode")]})</b>
+</tpl>
+</p>
+<hr />
+<p style="text-align:right"><b>Fine Amount: Rs. {FineAmount}/-</b></p>
+<hr />
+Offence Date: {[Ext.Date.format(values.OffenceDate, 'd/m/Y h:iA')]}<br />
+Nearby Loc.: <br />
+Geographical Coordinate: {[values.lat.toFixed(4)]}N, {[values.long.toFixed(4)]}E<br /><br /><br />
+Challaning Officer:<br />
+Belt No: {[values.officer.get("UserId")]}<br />
+Name: {[values.officer.get("FullName")]}<br />
+Device ID: SMARTPHONE
+<hr />

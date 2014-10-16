@@ -1,0 +1,329 @@
+/**
+ * @class Global_CSS
+ * Global CSS variables and mixins of Sencha Touch's Default Theme.
+ */
+/**
+ * @var {boolean} $include-pictos-font
+ * Optionally remove the default Pictos font. This will reduce the size of your compiled CSS files, however icons
+ * will no longer be available unless you provide your own.
+ */
+/**
+ * @var {boolean} $include-default-icons
+ * Optionally remove the default icon set which includes the following toolbar and tab bar icons: action,
+ * add, arrow_down, arrow_left, arrow_right, arrow_up, bookmarks, compose, delete, download, favorites,
+ * home, info, locate, maps, more, organize, refresh, reply, search, settings, star, team, time, trash,
+ * and user. Set to false to reduce CSS weight.
+ */
+/**
+ * @var {boolean} $include-form-sliders
+ * Decides if default HTML styles are included (for components with styleHtmlContent: true). Class is applied to .x-html.
+ */
+/**
+ * @var {boolean} $include-default-uis
+ * Decides whether or not to include the default UIs for all components.
+ */
+/**
+ * @var {boolean} $include-highlights=true
+ * Optionally disable all gradients, text-shadows, and box-shadows. Useful for CSS debugging,
+ * non-performant browsers, or minimalist designs.
+ */
+/**
+ * @var {boolean} $include-border-radius
+ * Optionally disable all border-radius. Useful for CSS debugging, non-performant browsers, or minimalist designs.
+ */
+/**
+ * @var {boolean} $basic-slider
+ * Optionally remove CSS3 effects from the slider component for improved performance.
+ */
+/**
+ * @var {color} $base-color
+ * The primary color variable from which most elements derive their color scheme.
+ * $base-color: #1985D0 !default; // Triton Blue
+ */
+/**
+ * @var {string} $base-gradient
+ * The primary gradient variable from which most elements derive their color scheme.
+ *
+ * See background-gradient mixin.
+ */
+/**
+ * @var {font-family} $font-family
+ * The font-family to be used throughout the theme.
+ *
+ * See background-gradient mixin.
+ */
+/**
+ * @var {color} $alert-color
+ * Color used for elements like badges, errors, and "decline" UIs (eg. on buttons).
+ */
+/**
+ * @var {color} $confirm-color
+ * Color used for elements like success messages, and "confirm" UIs (eg. on buttons).
+ */
+/**
+ * @var {color} $active-color
+ * Color used for elements like selected rows, "action" UIs (eg. on buttons) and certain overlays like the picker mask.
+ */
+/**
+ * @var {color} $neutral-color
+ * Color used for the neautral `ui` for Toolbars and Tabbars.
+ */
+/**
+ * @var {color} $page-bg-color
+ * Background color for fullscreen components.
+ * $page-bg-color: #eee !default;
+ */
+/**
+ * @var {measurement} $global-row-height
+ * The minimum row height for items like toolbars.
+ */
+/**
+ * @var {measurement} $global-list-height
+ * The minimum row height for items like toolbars.
+ */
+/**
+ * @var {measurement} $toolbar-spacing
+ * Space between items in a toolbar (like buttons and fields)
+ */
+/**
+ * @var {color} $loading-spinner-color
+ * Background-color for the bars in the loading spinner.
+ */
+/**
+ * @class Ext.dataview.List
+ */
+/**
+ * @var {color} $list-color
+ * Text color for list rows.
+ */
+/**
+ * @var {color} $list-bg-color
+ * Background-color for list rows.
+ */
+/**
+ * @var {color} $include-list-highlights
+ * Optionally disable all list gradients, text-shadows, and box-shadows. Useful for CSS debugging,
+ * non-performant browsers, or minimalist designs.
+ */
+/**
+ * @var {boolean} $list-zebrastripe
+ * Optionally zebra-stripe the list (alternating background colors).
+ */
+/**
+ * @var {color} $list-pressed-color
+ * Background-color for pressed list rows.
+ */
+/**
+ * @var {color} $list-active-color
+ * Background-color for selected list rows.
+ */
+/**
+ * @var {string} $list-active-gradient
+ * Gradient style for selected list rows.
+ */
+/**
+ * @var {color} $list-header-bg-color
+ * Background-color for list header rows (in grouped lists).
+ */
+/**
+ * @var {string} $list-header-gradient
+ * Gradient style for list header rows (in grouped lists).
+ */
+/**
+ * @var {measurement} $list-disclosure-size
+ * Default size (width/height) for disclosure icons.
+ */
+/**
+ * @var {measurement} $list-disclosure-round-size
+ * Default size (width/height) for disclosure icons in a list with a `round` ui.
+ */
+/**
+ * @var {measurement} $list-round-padding
+ * Default padding for lists with a `round` ui.
+ */
+/**
+ * @var {measurement} $list-rounded-radius
+ * Default border-radius for items in rounded list
+ */
+/* line 8, ../../touch/resources/sass/echallan.scss */
+.echallan .x-title .x-innerhtml {
+  padding: 0;
+}
+/* line 12, ../../touch/resources/sass/echallan.scss */
+.echallan .maincontainer {
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+/* line 17, ../../touch/resources/sass/echallan.scss */
+.echallan .x-form-fieldset {
+  margin: 0 0 0.5em;
+}
+/* line 21, ../../touch/resources/sass/echallan.scss */
+.echallan .x-html {
+  padding: .3em;
+}
+/* line 25, ../../touch/resources/sass/echallan.scss */
+.echallan .x-field {
+  border-bottom: 1px solid #233d6f;
+}
+
+/* line 33, ../../touch/resources/sass/echallan.scss */
+.tabtopbig.x-tabbar.x-docked-top {
+  height: 1.5em;
+  padding: 0;
+}
+/* line 37, ../../touch/resources/sass/echallan.scss */
+.tabtopbig.x-tabbar.x-docked-top .x-tab {
+  padding: 0.1em 0.7em;
+  height: 1.5em;
+}
+/* line 41, ../../touch/resources/sass/echallan.scss */
+.tabtopbig.x-tabbar.x-docked-top .x-tab .x-button-label {
+  font-size: 1em;
+}
+
+/* line 51, ../../touch/resources/sass/echallan.scss */
+.tabtopsmall.x-tabbar.x-docked-top {
+  height: 1.5em;
+  padding: 0;
+}
+/* line 55, ../../touch/resources/sass/echallan.scss */
+.tabtopsmall.x-tabbar.x-docked-top .x-tab {
+  padding: 0.3em 0.7em;
+  height: 1.5em;
+}
+/* line 59, ../../touch/resources/sass/echallan.scss */
+.tabtopsmall.x-tabbar.x-docked-top .x-tab .x-button-label {
+  font-size: 0.7em;
+}
+
+/* line 68, ../../touch/resources/sass/echallan.scss */
+.csdcpower {
+  font-size: 11px;
+  color: white;
+  font-weight: bold;
+  padding-right: 0.2em;
+}
+
+/* line 75, ../../touch/resources/sass/echallan.scss */
+.ui-btn-up-a {
+  border: 1px solid #fff;
+  background: transparent;
+}
+/* line 82, ../../touch/resources/sass/echallan.scss */
+.ui-btn-up-a:hover {
+  background: #d68282;
+}
+
+/* line 89, ../../touch/resources/sass/echallan.scss */
+.round-button {
+  border: 2px solid #fff;
+  background: transparent;
+  height: 45px;
+  width: 45px;
+  padding: 1px;
+  border-radius: 22px;
+  -webkit-border-radius: 22;
+}
+/* line 97, ../../touch/resources/sass/echallan.scss */
+.round-button:hover {
+  background: #d68282;
+}
+
+/* line 103, ../../touch/resources/sass/echallan.scss */
+.echallan-list .x-dataview-inner {
+  padding: 0.2em;
+}
+/* line 107, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #acbfe5;
+  vertical-align: middle;
+  -webkit-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+/* line 116, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item.x-item-selected {
+  background: #b4a4a4;
+  border: 1px solid #9d8888;
+}
+/* line 123, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .x-layout-box-item {
+  padding: 3px 6px;
+  -webkit-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+/* line 129, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .medium-bold {
+  font-size: medium;
+  font-weight: bold;
+}
+/* line 136, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .medium {
+  font-size: medium;
+}
+/* line 141, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .indate {
+  vertical-align: middle;
+  font-size: smaller;
+  font-style: italic;
+}
+/* line 148, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .small {
+  font-size: small;
+}
+/* line 153, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .normal-bold {
+  font-size: 100%;
+  font-weight: bold;
+}
+/* line 160, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .light {
+  color: #2f3e46;
+}
+
+/* line 169, ../../touch/resources/sass/echallan.scss */
+.imageList .x-inner {
+  padding: .4em;
+}
+/* line 172, ../../touch/resources/sass/echallan.scss */
+.imageList .x-dataview-item {
+  display: inline-block;
+  border: 1px solid transparent;
+}
+/* line 175, ../../touch/resources/sass/echallan.scss */
+.imageList .x-dataview-item.x-item-selected {
+  border: 1px solid #d68282;
+}
+/* line 178, ../../touch/resources/sass/echallan.scss */
+.imageList .x-dataview-item .x-img {
+  width: 120px;
+  height: 120px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-size: contain;
+  background-position: center;
+  margin: 5px 0 0 5px;
+  background-repeat: no-repeat;
+}
+/* line 189, ../../touch/resources/sass/echallan.scss */
+.imageList .x-dataview-item .x-img-big {
+  width: 250px;
+  height: 250px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-size: contain;
+  background-position: center;
+  margin: 5px 0 0 5px;
+  background-repeat: no-repeat;
+}
+
+/* line 203, ../../touch/resources/sass/echallan.scss */
+.attlabel {
+  position: relative;
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 75%;
+  margin: 0 0 0 5px;
+}

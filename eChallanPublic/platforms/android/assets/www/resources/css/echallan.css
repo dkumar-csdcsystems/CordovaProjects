@@ -1,0 +1,133 @@
+/* line 4, ../../touch/resources/sass/echallan.scss */
+.echallan .x-title .x-innerhtml {
+  padding: 0;
+}
+/* line 8, ../../touch/resources/sass/echallan.scss */
+.echallan .maincontainer {
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+/* line 12, ../../touch/resources/sass/echallan.scss */
+.echallan .maincontainer .x-form-fieldset {
+  margin: 0 0 0.5em;
+}
+/* line 17, ../../touch/resources/sass/echallan.scss */
+.echallan .x-form-fieldset {
+  margin: 0 0.2em 0.5em 0.2em;
+}
+
+/* line 23, ../../touch/resources/sass/echallan.scss */
+.csdcpower {
+  font-size: 11px;
+  color: #63b4ec;
+  font-weight: bold;
+}
+
+/* line 29, ../../touch/resources/sass/echallan.scss */
+.ui-btn-up-a {
+  border: 1px solid #cccccc;
+  background: #eeeeee;
+  font-weight: bold;
+  height: 230px;
+  padding: 5px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  color: #2f3e46;
+  text-shadow: 0 1px 0 white;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#f1f1f1));
+  /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(white, #f1f1f1);
+  /* Chrome 10+, Saf5.1+ */
+  background-image: linear-gradient(#ffffff, #f1f1f1);
+}
+
+/* line 46, ../../touch/resources/sass/echallan.scss */
+.ui-btn-hover-a {
+  border: 1px solid #bbbbbb;
+  background: #dfdfdf;
+  font-weight: bold;
+  color: #2f3e46;
+  text-shadow: 0 1px 0 white;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e0e0e0));
+  /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(#f6f6f6, #e0e0e0);
+  /* Chrome 10+, Saf5.1+ */
+  background-image: linear-gradient(#f6f6f6, #e0e0e0);
+}
+
+/* line 57, ../../touch/resources/sass/echallan.scss */
+.x-toolbar {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+}
+
+/* line 64, ../../touch/resources/sass/echallan.scss */
+.x-toolbar.roundbottom {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  -webkit-border-top-left-radius: 0px;
+  -webkit-border-top-right-radius: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+}
+
+/* line 76, ../../touch/resources/sass/echallan.scss */
+.echallan-list .x-dataview-inner {
+  padding: 0.2em;
+}
+/* line 80, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #63b4ec;
+  vertical-align: middle;
+  -webkit-border-radius: 0.35em;
+  border-radius: 0.35em;
+  background: #63b4ec;
+  color: #ffffff;
+}
+/* line 91, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item.x-item-selected {
+  background: #aaaaff;
+  border: 1px solid #f00;
+}
+/* line 98, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .x-layout-box-item {
+  padding: 3px 6px;
+  -webkit-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+/* line 104, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .medium-bold {
+  font-size: medium;
+  font-weight: bold;
+}
+/* line 111, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .medium {
+  font-size: medium;
+}
+/* line 116, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .indate {
+  vertical-align: middle;
+  font-size: smaller;
+  font-style: italic;
+}
+/* line 123, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .small {
+  font-size: small;
+}
+/* line 128, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .normal-bold {
+  font-size: 100%;
+  font-font: bold;
+}
+/* line 135, ../../touch/resources/sass/echallan.scss */
+.echallan-list .echallan-list-item .x-layout-box .light {
+  color: #2f3e46;
+}
