@@ -1,0 +1,55 @@
+﻿<div ng-controller="CalendarCtrl">
+
+    <div class="row" id="calendarHeader">
+        <div class="clearfix">
+            <div class="xs-gap"></div>
+            <div class="col-sm-3">
+                <div class="btn-group btn-group-calender" style="float: left">
+                  <label class="btn active"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Calendar</label> 
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="btn-group btn-group-calender" data-toggle="buttons" style="float: right">
+                    <label class="btn active">
+                        <input type="radio" name="calendarMode" value="month">Month
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="calendarMode" value="agendaWeek">Week
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="calendarMode" value="agendaDay">Day
+                    </label>
+                    <button type="button" class="btn close clbtn" aria-label="Close" ng-click="CloseCalendarView()"><span aria-hidden="true">&times;</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body ">
+            <div class="row" id="calendarSubHeader">
+                <div class="col-sm-12">
+                    <div class="box-head style-inverse">
+                        <div class="col-sm-12" style="width: 100%;">
+                            <div class="gap gap-milli"></div>
+                            <div class="btn-group">
+                                <button id="calender-prev" type="button" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
+                                <button id="calender-next" type="button" class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
+                            </div>
+                            <span class="text-light selected-day bold">&nbsp;</span>
+                            <span class="text-light selected-date bold">&nbsp;</span>
+                            <div class="btn-group date" style="width: 30px;">
+                                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                            </div>
+                            <div class="gap gap-milli"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id='calendar'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿<table class="table table-bordered table-hover borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+    <tbody ng-repeat="parent in folderProcessList">
+        <tr class="listGrouping" data-toggle="collapse" data-parent="#accordion" ng-click="inamain=!inamain" href="#parentgroupname{{$index}}" aria-expanded="false">
+            <td colspan="8">
+                <span ng-hide="!inamain"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                <span ng-hide="inamain"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span> {{parent.groupname}}
+            </td>
+        </tr>
+        <tr class="collapse" id="parentgroupname{{$index}}">
+            <td colspan="8">
+                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                    <thead>
+                        <tr>
+                            <th>Process RSN  </th>
+                            <th>Assigned User</th>
+                            <th>To Start</th>
+                            <th>To End </th>
+                            <th>Started </th>
+                            <th>Ended </th>
+                            <th>Status </th>
+                            <th>Comment </th>
+                        </tr>
+                    </thead>
+                    <tbody style="background-color:#ffffff" ng-repeat="child in parent.processlist">
+                        <tr data-toggle="collapse" data-parent="#accordion" ng-click="folderprocesslist=!folderprocesslist" href="#folderprocesslist{{child.processrsn}}" aria-expanded="false">
+                            <td>
+                                <span ng-hide="!folderprocesslist"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                <span ng-hide="folderprocesslist"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp;{{child.processrsn}}
+                            </td>
+                            <td>
+                                {{child.assigneduser }}
+                            </td>
+                            <td>
+                                {{child.scheduledate}}
+                            </td>
+                            <td>
+                                {{child.scheduleenddate}}
+                            </td>
+                            <td>
+                                {{child.startdate}}
+                            </td>
+                            <td>
+                                {{child.enddate}}
+                            </td>
+                            <td>
+                                {{child.statusdesc}}
+                            </td>
+                            <td>
+                                {{child.processcomment}}
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="folderprocesslist{{child.processrsn}}">
+                            <td colspan="8">
+                                <table class="table table-bordered table-hover borderNone table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Attempt RSN</th>
+                                            <th>Attempt By</th>
+                                            <th>Attempt Date</th>
+                                            <th>Result</th>
+                                            <th>Attempt Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="ialc in child.items">
+                                            <td>{{ialc.attemptrsn}}</td>
+                                            <td>{{ialc.attemptby}}</td>
+                                            <td>{{ialc.attemptdate}}</td>
+                                            <td>{{ialc.resultdesc}}</td>
+                                            <td>{{ialc.attemptcomment}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>

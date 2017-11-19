@@ -1,0 +1,257 @@
+﻿<div class="row">
+    <div class="col-sm-3 hid scroll-1" data-ng-hide="!showPeopleSearchResult">
+        <ul data-ng-repeat="x in peopleSearchList" class="nav">
+            <li>
+                <a href="#main" class="list-group-item" data-ng-click="onPeopleSelect(x.peoplersn)">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5>PeopleRSN: {{x.peoplersn}}</h5>
+                            <h5>Name: {{x.name}}</h5>
+                            <h5>Address: {{x.address}}</h5>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-12" id="peoplecontent">
+        <form class="lofin-box" name="form1" ng-submit="onRetrievePeople()" role="form">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="input-group" style="z-index: 0!important">
+                        <input type="text" placeholder="Search people..." name="searchPeopleText" id="searchPeopleText" ng-class="{ 'has-error': form1.searchPeopleText.$dirty && form1.searchPeopleText.$error.required }" ng-model="peopleFilterVariables.searchPeopleText" class="form-control" required>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="clearPeopleSearchText()" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                    <span ng-show="form.searchPeopleText.$dirty && form.searchPeopleText.$error.required" class="help-block" style="color:brown">Please enter data to search</span>
+                </div>
+                <div class="col-sm-5 text-right">
+                    <button type="submit" ng-disabled="form1.$invalid" id="searchButton" class="btn btn-info" value="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Search</button>
+                    <button type="button" ng-click="AcceptPeople()" data-ng-hide="!enabledisableAcceptPeople" data-toggle="collapse" href="#collapsepePeople" class="btn btn-info">Accept </button>
+                    <button type="button" ng-click="onClearPeople()" data-toggle="collapse" href="#collapsepePeople" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        </form>
+        <div class="sm-gap"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading collapsepanel" style="padding:0px 20px !important" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                <div class="row">
+                    <h5 class="marZro">
+                        General
+                    </h5>
+                </div>
+            </div>
+            <div class="collapse in" id="generalDetail">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    Saluation
+                                    <select data-ng-model="peopleFilterVariables.peopleSaluation" class="form-control">
+                                        <option data-ng-repeat="t in saluationList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    First
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleFirstName" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">Middle<input type="text" data-ng-model="peopleFilterVariables.peopleMiddleName" class="form-control" /></div>
+                                <div class="col-sm-3">Last<input type="text" data-ng-model="peopleFilterVariables.peopleLastName" class="form-control" /></div>
+                                <div class="col-sm-2">Name Sufix<input type="text" data-ng-model="peopleFilterVariables.peopleNameSuffix" class="form-control" /></div>
+                            </div>
+                            <div class="sm-gap"></div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    Org.
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleOrgName" class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    Status<select data-ng-model="peopleFilterVariables.peopleStatus" class="form-control">
+                                        <option data-ng-repeat="t in peopleStatusList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    Type
+                                    <select data-ng-model="peopleFilterVariables.peopleRoleType" class="form-control">
+                                        <option data-ng-repeat="t in peopleRoleList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="sm-gap"></div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    Phone 1
+                                    <input type="text" data-ng-model="peopleFilterVariables.peoplePhone1" class="form-control" />
+
+                                </div>
+                                <div class="col-sm-2">
+                                    Phone Type 1
+                                    <select data-ng-model="peopleFilterVariables.peoplePhone1Desc" class="form-control">
+                                        <option data-ng-repeat="t in phoneDescList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    Phone 2
+                                    <input type="text" data-ng-model="peopleFilterVariables.peoplePhone2" class="form-control" />
+
+                                </div>
+                                <div class="col-sm-2">
+                                    Phone Type 2
+                                    <select data-ng-model="peopleFilterVariables.peoplePhone2Desc" class="form-control">
+                                        <option data-ng-repeat="t in phoneDescList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    Phone 3
+                                    <input type="text" data-ng-model="peopleFilterVariables.peoplePhone3" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">
+                                    Phone Type 3
+                                    <select data-ng-model="peopleFilterVariables.peoplePhone2Desc" class="form-control">
+                                        <option data-ng-repeat="t in phoneDescList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="sm-gap"></div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    Email
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleEmailAdd" class="form-control" />
+                                </div>
+                                <div class="col-sm-4">Row Id<input type="text" data-ng-model="peopleFilterVariables.peopleRowId" class="form-control" /></div>
+                                <div class="col-sm-4">Parent Id<input type="text" data-ng-model="peopleFilterVariables.peopleParentId" class="form-control" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading collapsepanel" style="padding:0px 20px !important" data-toggle="collapse" data-parent="#accordion"
+                 aria-expanded="false" aria-controls="collapseOne">
+                <div class="row">
+                    <h5 class="marZro">
+                        Address
+                    </h5>
+                </div>
+            </div>
+            <div class="collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    House No.
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrHouseNo" class="form-control" />
+                                </div>
+                                <div class="col-sm-1">
+                                    Prefix
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrStreetPrefix" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">Street Name<input type="text" data-ng-model="peopleFilterVariables.peopleAddrStreetName" class="form-control" /></div>
+                                <div class="col-sm-2">
+                                    Street Type<select data-ng-model="peopleFilterVariables.peopleAddrStreetType" class="form-control">
+                                        <option data-ng-repeat="t in streetTypeList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    Direction<select data-ng-model="peopleFilterVariables.peopleAddrStreetDirection" class="form-control">
+                                        <option data-ng-repeat="t in addrDirectionList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    Unit
+                                    <select data-ng-model="peopleFilterVariables.peopleAddrUnitType" class="form-control">
+                                        <option data-ng-repeat="t in addrUnitTypeList" value="{{t.value}}">{{t.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                    Unit No.
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrUnitNo" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="sm-gap"></div>
+                            <div class="row">
+
+                                <div class="col-sm-2">
+                                    City
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrCity" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">
+                                    County
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrCounty" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">
+                                    Community
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrCommunity" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">
+                                    State
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrState" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">
+                                    Postal Code
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrPostalCode" class="form-control" />
+                                </div>
+                                <div class="col-sm-2">
+                                    Country
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddrCountry" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="sm-gap"></div>
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    FreeFormAddress
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddressLine1" class="form-control" />
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddressLine2" class="form-control" />
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleAddressLine2" class="form-control" />
+                                </div>
+                                <div class="col-sm-5">
+                                    Comments
+                                    <textarea data-ng-model="peopleFilterVariables.peopleAddrComments" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading collapsepanel" style="padding:0px 20px !important" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                <div class="row">
+                    <h5 class="marZro">
+                        Additional Details
+                    </h5>
+                </div>
+            </div>
+            <div class="collapse in" id="additionalDetails">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    Date Of Birth
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleDOB" class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    Reference File
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleReference" class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    Familyld
+                                    <input type="text" data-ng-model="peopleFilterVariables.peopleFamilyId" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sm-gap"></div>
+</div>

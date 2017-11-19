@@ -1,0 +1,106 @@
+﻿
+<table class="table table-bordered table-hover borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+    <tr>
+        <td>
+            <button class="btn btn-link" style="padding-left: 0px" type="button" id="addbutton"
+                    ng-click="addFolderFreeFrom(freefromtabitem.freeformcode,FolderDetails[0].RowId,FolderDetails[0].IsNew,FolderDetails[0].FolderId,InspectionProcessMetricsDetails.ProcessId)">
+                <i class="fa fa-plus-circle"></i>&nbsp;Add
+            </button>
+            <button class="btn btn-link" style="padding-left: 0px" type="button" id="addbutton"
+                    ng-click="deleteFolderFreeFrom(freefromtabitem.freeformcode,FolderDetails[0].RowId)">
+                <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Delete
+            </button>
+        </td>
+    </tr>
+</table>
+<table class="table table-bordered table-hover borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th ng-repeat="colitem in folderFreeFormDataList.validColumnList">
+                <span ng-style="{
+                                                  'background':'{{colitem.labelbackground}}',
+                                                  'color':'{{colitem.labelfontcolour}}',
+                                                  'font-family':'{{colitem.labelfontname}}',
+                                                  'font-size':'{{colitem.labelfontsize}}',
+                                                  'font-weight':'{{colitem.labelfontweight}}',
+                                                  'height':'{{colitem.labelheight}}',
+                                                  'width':'{{colitem.labelwidth}}',
+                                                  }">
+                    {{colitem.columnlabel}}
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in folderFreeFormDataList track by $index">
+            <td>
+                <input type="checkbox" ng-model="x.toBeDelete" ng-disabled="{{x.freeformrsn>0?true:false}}" />
+            </td>
+            <td ng-repeat="colitem in folderFreeFormDataList.validColumnList">
+                <div ng-if="colitem.displaytype.toLowerCase()==='text'">
+                    <input ng-style="{
+                                                  'background':'{{colitem.valuebackground}}',
+                                                  'color':'{{colitem.valuefontcolour}}',
+                                                  'font-family':'{{colitem.valuefontname}}',
+                                                  'font-size':'{{colitem.valuefontsize}}',
+                                                  'font-weight':'{{colitem.valuefontweight}}',
+                                                  'height':'{{colitem.valueheight}}',
+                                                  'width':'{{colitem.valuewidth}}',
+                                                  }"
+                           ng-readonly="{{colitem.readonly}}"
+                           ng-model="x[colitem.columnname]"
+                           class="form-control" type="text" ng-model-options="{ updateOn: 'blur' }" ng-change="freeFromInputChange(x.id)" />
+                </div>
+                <div ng-if="colitem.displaytype.toLowerCase()==='textarea'">
+                    <textarea ng-style="{
+                                                  'background':'{{colitem.valuebackground}}',
+                                                  'color':'{{colitem.valuefontcolour}}',
+                                                  'font-family':'{{colitem.valuefontname}}',
+                                                  'font-size':'{{colitem.valuefontsize}}',
+                                                  'font-weight':'{{colitem.valuefontweight}}',
+                                                  'height':'{{colitem.valueheight}}',
+                                                  'width':'{{colitem.valuewidth}}',
+                                                  }"
+                              ng-readonly="{{colitem.readonly}}"
+                              ng-model="x[colitem.columnname]"
+                              class="form-control" type="text" ng-model-options="{ updateOn: 'blur' }" ng-change="freeFromInputChange(x.id)" />
+                </div>
+                <div ng-if="colitem.displaytype.toLowerCase()==='choose' || colitem.displaytype.toLowerCase()=='c'">
+                    <select ng-style="{
+                                                  'background':'{{colitem.valuebackground}}',
+                                                  'color':'{{colitem.valuefontcolour}}',
+                                                  'font-family':'{{colitem.valuefontname}}',
+                                                  'font-size':'{{colitem.valuefontsize}}',
+                                                  'font-weight':'{{colitem.valuefontweight}}',
+                                                  'height':'{{colitem.valueheight}}',
+                                                  'width':'{{colitem.valuewidth}}',
+                                                  }" class="form-control"
+                            ng-model="x[colitem.columnname]"
+                            ng-change="freeFromInputChange(x.id)">
+                        <option ng-repeat="x in folderFreeFormDataList.validColumnValueList" value="{{x.columnvalue}}">{{x.columnvaluedesc}}</option>
+                    </select>
+                </div>
+                <div class='input-group date' ng-if="colitem.displaytype.toLowerCase()==='date' || colitem.displaytype.toLowerCase()=='d'">
+                    <input ng-style="{
+                                                  'background':'{{colitem.valuebackground}}',
+                                                  'color':'{{colitem.valuefontcolour}}',
+                                                  'font-family':'{{colitem.valuefontname}}',
+                                                  'font-size':'{{colitem.valuefontsize}}',
+                                                  'font-weight':'{{colitem.valuefontweight}}',
+                                                  'height':'{{colitem.valueheight}}',
+                                                  'width':'{{colitem.valuewidth}}',
+                                                  }" type='text' class="form-control" ng-blur="freeFromInputChange(x.id)" ng-model="x[colitem.columnname]" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div ng-if="colitem.displaytype.toLowerCase()==='boolean' || colitem.displaytype.toLowerCase()=='b'">
+                    <input type="radio" name="{{x[colitem.columnname]}}" ng-checked="{{x[colitem.columnname]=='true' }}" ng-click="yesRadioSelected(x.id,colitem.columnname)" id="radioYes" />Yes
+                    <input type="radio" name="{{x[colitem.columnname]}}" ng-checked="{{x[colitem.columnname]=='false' }}" ng-click="noRadioSelected(x.id,colitem.columnname)" id="radioNo" />No
+                </div>
+            </td>
+        </tr>
+    </tbody>
+
+</table>

@@ -1,0 +1,237 @@
+﻿<div class="row" id="newfolderheader">
+    <div class="sm-gap"></div>
+    <div class="col-sm-4">
+        <h4><i class="glyphicon glyphicon-folder-open"></i> Add New Folder</h4>
+    </div>
+    <div class="col-sm-8 text-right">
+        <button type="button" class="close clbtn" aria-label="Close" ng-click="CloseAddFolderPanel()"><span aria-hidden="true">&times;</span></button>
+    </div>
+</div>
+<div class="row scroll-4" id="addfolderscroll">
+    <div class="col-sm-12">
+        <div class="panel panel-default" style="margin-bottom: 5px !important;">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default" style="margin-bottom: 5px !important;">
+                            <div class="panel-heading collapsepanel" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                                <h5 class="marZro">
+                                    Folder Declaration
+                                </h5>
+                            </div>
+                            <div class="collapse in">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Folder Type
+                                            <select id="Select1" class="form-control" type="text" placeholder="Pick Value" ng-model="vals.foldertype"
+                                                    ng-change="onFolderTypeChange(vals.foldertype)" ng-options="vals.folderdesc for vals in addedFolderVariable.folderTypeList"></select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Sub Type
+                                            <select id="Select2" class="form-control" type="text" placeholder="Pick Value" ng-model="vals.value"
+                                                    ng-change="onFolderSubTypeChange(vals.value)" ng-options="vals.name for vals in addedFolderVariable.folderSubTypeList"></select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Work Type
+                                            <select data-ng-model="addedFolderVariable.folderWorkType" class="form-control">
+                                                <option data-ng-repeat="t in addedFolderVariable.folderWorkTypeList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-default" style="margin-bottom: 5px !important;">
+                            <div class="panel-heading collapsepanel" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                                <h5 class="marZro">
+                                    Process
+                                </h5>
+                            </div>
+                            <div class="collapse in">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Process Type
+                                            <select data-ng-model="addedFolderVariable.folderProcessType" class="form-control">
+                                                <option data-ng-repeat="t in addedFolderVariable.folderProcessTypeList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Date
+                                            <!--<div class="input-group picker">
+                                                <input ng-model="addedFolderVariable.folderProcessScheduleDate" type="text" class="form-control"
+                                                       id="datePickerItem_{{$index}}" uib-datepicker-popup="dd-MM-yyyy"
+                                                       is-open="opened[$index]" max-date="maxDate" datepicker-options="dateOptions" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" ng-click="open($event, $index)">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>-->
+                                            <div class="form-group">
+                                                <div class='input-group date' id='processdatetimepicker'>
+                                                    <input type='text' class="form-control" ng-model="addedFolderVariable.folderProcessScheduleDate"/>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Priority
+                                            <input type="text" ng-model="addedFolderVariable.folderProcessPriority" placeholder="Enter Number" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default" style="margin-bottom: 10px !important;">
+                            <div class="panel-heading collapsepanel" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                                <h5 class="marZro">
+                                    Folder
+                                </h5>
+                            </div>
+                            <div class="collapse in">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Parent Id
+                                            <input type="text" data-ng-model="addedFolderVariable.folderParentId" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Permit #
+                                            <input type="text" data-ng-model="addedFolderVariable.folderPermitNo" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Folder Name
+                                            <input type="text" data-ng-model="addedFolderVariable.folderName" class="form-control" />
+                                        </div>
+                                        <div class="sm-gap"></div>
+
+                                        <div class="col-sm-4">
+                                            Description
+                                            <textarea rows="1" data-ng-model="addedFolderVariable.folderDescription" class="form-control"></textarea>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Condition
+                                            <textarea rows="1" data-ng-model="addedFolderVariable.folderCondition" class="form-control"></textarea>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            In Date
+                                            <p>{{todayDate}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default" style="margin-bottom: 10px !important;" ng-controller="PeopleCtrl">
+                            <div class="panel-heading collapsepanel" role="button" data-toggle="collapse" data-parent="#accordion" ng-click="onAddPeople();collapsepePeople=!collapsepePeople" href="#collapsepePeople" aria-expanded="false" aria-controls="collapseOne">
+                                <h5 class="marZro">
+                                    <i ng-hide="collapsepePeople" class="fa fa-plus-circle"></i>
+                                    <i ng-hide="!collapsepePeople" class="fa fa-minus-circle"></i>Add Folder People
+                                </h5>
+                            </div>
+                            <div class="collapse" id="collapsepePeople">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12"  ng-include src="'views/people.html'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered table-hover table-condensed">
+                            <tr>
+                                <th>Role</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Address</th>
+                                <th></th>
+                            </tr>
+                            <tr data-ng-repeat="x in addedFolderVariable.PeopleAddedList">
+                                <td>
+                                    <select ng-options="option.name for option in addedFolderVariable.peopleRoleList track by option.value"
+                                            ng-model="x.peopleSelectedRoleType" ng-change="onPeopleSelectedRoleTypeChange(x.Id,x.peopleSelectedRoleType)"></select>
+                                </td>
+                                <td>{{x.name}}</td>
+                                <td>{{x.phone}}</td>
+                                <td>{{x.status}}</td>
+                                <td>{{x.address}}</td>
+                                <td>
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <button class="btn btn-link padding-l-r0" type="button" ng-click="RemoveAddedPeople(x.Id)" id="delbutton">
+                                        <span class="deficiencylabel padding-l-r0">Delete</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="panel panel-default" style="margin-bottom: 10px !important;" ng-controller="PropertyCtrl" >
+                            <div class="panel-heading collapsepanel" role="button" data-toggle="collapse" data-parent="#accordion" ng-click="onAddProperty();collapsepeProperty=!collapsepeProperty" href="#collapsepeProperty" aria-expanded="false" aria-controls="collapseOne">
+                                <h5 class="marZro">
+                                    <i ng-hide="collapsepeProperty" class="fa fa-plus-circle"></i>
+                                    <i ng-hide="!collapsepeProperty" class="fa fa-minus-circle"></i>Add Folder Property
+                                </h5>
+                            </div>
+                            <div class="collapse" id="collapsepeProperty">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12" ng-include src="'views/property.html'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered table-hover table-condensed">
+                            <tr>
+                                <th>Property RSN</th>
+                                <th>Address</th>
+                                <th>Plan/Lot</th>
+                                <th>Comment</th>
+                                <th>Property Type</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                            <tr data-ng-repeat="x in addedFolderVariable.PropertyAddedList">
+                                <td>{{x.propertyrsn}}</td>
+                                <td>{{x.address}}</td>
+                                <td>{{x.planlot}}</td>
+                                <td>{{x.comment}}</td>
+                                <td>{{x.propertytype}}</td>
+                                <td>{{x.status}}</td>
+                                <td>
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <button class="btn btn-link padding-l-r0" type="button" ng-click="RemoveAddedProperty(x.Id)" id="Button1">
+                                        <span class="deficiencylabel padding-l-r0">Delete</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-sm-12" id="newfolderfooter">
+                        <button type="button" ng-click="onSaveFolder(x.peopleSelectedRoleType)" class="btn btn-info pull-right">Save</button>
+                        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" ng-click="CloseAddFolderPanel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

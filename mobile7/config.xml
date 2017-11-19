@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.csdcsystems.mobile7" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>InspectorApp</name>
+    <description>
+        Inspector's App A7
+    </description>
+    <author email="dkumar@csdcsystems.com" href="http://www.csdcsystems.com">
+        CSDC Systems Inc
+    </author>
+    <content src="Index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-navigation href="*"/>
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        <preference name="BackupWebStorage" value="local" />
+        <preference name="DisallowOverscroll" value="false" />
+    </platform>
+    <plugin name="cordova-plugin-qrscanner" spec="~2.5.0" />
+    <plugin name="cordova-plugin-network-information" spec="~1.3.3" />
+</widget>

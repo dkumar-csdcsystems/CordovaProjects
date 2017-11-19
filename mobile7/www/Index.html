@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Inspector App</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="css/mCustomScrollbar.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/techlicity.css" rel="stylesheet" />
+    <link href="css/angular-datepicker.css" rel="stylesheet" />
+    <link href="css/fullcalendar.css" rel="stylesheet" />
+    <link href="css/loading-bar.css" rel="stylesheet" />
+    <link href="css/toastr.min.css" rel="stylesheet" />
+    <link href="css/signature-pad.css" rel="stylesheet" />
+    
+</head>
+
+<body class="body-background">
+<div data-ng-view="">
+    <h1 style="color: white; text-align: center;">Inspector App</h1>
+    
+</div>
+    <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            window.open = cordova.InAppBrowser.open;
+        }
+       
+    </script>
+    <!--<script type="text/javascript" src="winstore-jscompact.js"></script>-->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="lib/jspdf.min.js"></script>
+    <script src="lib/html2canvas.js"></script>
+    <script src="lib/xml2json.js"></script>
+    <script data-main="app" src="lib/require.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/maps/api/js?key=AIzaSyBVh4dpbgV7xvOLTC8KtFz_dJKEiI1V4zs&libraries=places"></script>
+    <!--<script type="text/javascript" src="http://www.google.com/maps/api/js?libraries=places"></script>-->
+   
+</body>
+</html>

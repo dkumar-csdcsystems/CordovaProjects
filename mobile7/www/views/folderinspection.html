@@ -1,0 +1,1513 @@
+﻿<div class="xs-gap"></div>
+<div class="row">
+    <div class="col-sm-11">
+        <ul class="nav nav-tabs cust-navTab">
+            <li role="presentation" ng-hide="togglesearchsectiondiv">
+                <a class="back-button" ng-click="ClosePanel()" ng-if="currentview =='Inbox'">
+                    <i class="fa fa-angle-left"></i>&nbsp;Back to Inbox
+                </a>
+                <a class="back-button" ng-click="ClosePanel()" ng-if="currentview =='Outbox'">
+                    <i class="fa fa-angle-left"></i>&nbsp;Back to Outbox
+                </a>
+                <a class="back-button" ng-click="ClosePanel()" ng-if="currentview =='Project'">
+                    <i class="fa fa-angle-left"></i>&nbsp;Back to Project
+                </a>
+            </li>
+            <li role="presentation" ng-hide="togglesearchsectiondiv" ng-if="currentview =='Inbox'"><a ng-click="shoInbox()" class="back-button" style="margin-left: 5px!important;"><i class="fa fa-bars"></i>&nbsp;Show Inbox</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-1 text-center">
+        <button type="button" class="close clbtn" aria-label="Close" ng-click="ClosePanel()" style="float:none;font-size:35px;"><span aria-hidden="true">&times;</span></button>
+    </div>
+</div>
+<div class="xs-gap"></div>
+<div class="row">
+    <div class="col-sm-12">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs cust-navTab navPaddingLeft" role="tablist" id="inspectiontabs">
+            <li role="presentation" class="active"><a href="/#folder" aria-controls="folder" role="tab" data-toggle="tab">Folder</a></li>
+            <li role="presentation"><a href="/#property" aria-controls="property" role="tab" data-toggle="tab">Property&nbsp;{{propertycount}}</a></li>
+            <li role="presentation"><a href="/#people" aria-controls="people" role="tab" data-toggle="tab">People&nbsp;{{peoplecount}}</a></li>
+            <li role="presentation"><a href="/#folderinfo" aria-controls="folderinfo" role="tab" data-toggle="tab" ng-click="setDropDownList('folderinfo')">Folder Info&nbsp;{{folderinfocount}}</a></li>
+            <li role="presentation"><a href="/#inspection" aria-controls="inspection" role="tab" data-toggle="tab">Inspection</a></li>
+            <li role="presentation"><a href="/#attachment" aria-controls="attachment" role="tab" data-toggle="tab">Attachment&nbsp;{{attachmentcount}}</a></li>
+            <li role="presentation"><a href="/#history" aria-controls="history" role="tab" data-toggle="tab">History&nbsp;{{historycount}}</a></li>
+            <li role="presentation" ng-if="reportCount>0"><a href="/#report" aria-controls="report" role="tab" data-toggle="tab">Report&nbsp;({{reportCount}})</a></li>
+            <li role="presentation"><a href="/#folderprocesslist" aria-controls="folderprocesslist" role="tab" data-toggle="tab">Process&nbsp;({{processCount}})</a></li>
+            <li role="presentation"><a href="/#foldercomment" aria-controls="foldercomment" role="tab" data-toggle="tab">Comment&nbsp;({{folderCommentCount}})</a></li>
+            <li role="presentation"><a href="/#folderfee" aria-controls="folderfee" role="tab" data-toggle="tab">Fee&nbsp;({{folderFeeCount}})</a></li>
+            <li role="presentation"><a href="/#folderfixture" aria-controls="folderfixture" role="tab" data-toggle="tab">Fixture&nbsp;({{folderFixtureCount}})</a></li>
+            <li role="presentation"><a href="/#folderDocument" aria-controls="folderDocument" role="tab" data-toggle="tab">Document&nbsp;({{folderDocumentCount}})</a></li>
+            <li role="presentation" ng-repeat="freefromtabitem in validFolerFreeFormTabList track by $index">
+                <a href="/#folderfreefromtabid{{$index}}" aria-controls="folderfreefromtabid{{$index}}" role="tab" data-toggle="tab" ng-click="selectValidFreeFormTab(freefromtabitem.freeformcode,FolderDetails[0].RowId,$index,'folder')">{{freefromtabitem.tabdesc}}</a>
+            </li>
+        </ul>
+
+        <!--TabButtons-->
+        <!-- Tab panes -->
+        <div class="tab-content ">
+
+
+            <div role="tabpanel" class="tab-pane fade in active getactive" id="folder">
+
+                <div class="sm-gap"></div>
+                <!--Gap-->
+
+                <div class="scroll">
+
+                    <div data-ng-repeat="parent in FolderDetails">
+
+                        <div class="col-sm-12">
+                            <div class="row grid">
+
+                                <div class="col-sm-6 summary">
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body ">
+                                            <h4 class="h4color">Folder Number and Status</h4>
+                                            <!--heading-->
+                                            <hr style="margin: 0;">
+                                            <div class="sm-gap"></div>
+                                            <!--Gap-->
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="lab">Folder Number</div>
+                                                    <div class="labData">{{parent.FolderNumber}}</div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="lab">Folder Status</div>
+                                                    <div class="labData">{{parent.FolderStatus}}</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--Body-->
+
+                                    </div>
+                                    <!--Panel-->
+
+
+                                </div>
+
+                                <div class="col-sm-6 summary">
+
+                                    <div class="panel panel-default">
+
+                                        <div class="panel-body ">
+                                            <h4 class="h4color">Folder Type</h4>
+                                            <!--heading-->
+                                            <hr style="margin: 0;">
+                                            <div class="sm-gap"></div>
+                                            <!--Gap-->
+
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="lab">Type</div>
+                                                    <div class="labData">{{parent.Type}}</div>
+                                                </div>
+                                                <div class="col-sm-4">
+
+                                                    <div class="lab">Sub Type</div>
+                                                    <div class="labData">{{parent.SubType}}</div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="lab">Group</div>
+                                                    <div class="labData">{{parent.Group}}</div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="sm-gap"></div>
+
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="lab">Work Type</div>
+                                                    <div class="labData">{{parent.WorkType}}</div>
+
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="lab">Row Id</div>
+                                                    <div class="labData">{{parent.RowId}}</div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="lab">Parent Id</div>
+                                                    <div class="labData">{{parent.ParentId}}</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--Body-->
+
+                                    </div>
+                                    <!--Panel-->
+                                </div>
+
+                                <div class="col-sm-6 summary">
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body ">
+                                            <h4 class="h4color">Tracking Date</h4>
+                                            <!--heading-->
+                                            <hr style="margin: 0;">
+                                            <div class="sm-gap"></div>
+                                            <!--Gap-->
+
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="lab">In Date</div>
+                                                    <div class="labData">{{parent.InDate}}</div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="lab">Close Date</div>
+                                                    <div class="labData">{{parent.CloseDate}}</div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="lab">Final Date</div>
+                                                    <div class="labData">{{parent.FinalDate}}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="sm-gap"></div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="lab">Issue/Approver</div>
+                                                    <div class="labData">{{parent.IssueApprover}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Body-->
+
+                                    </div>
+                                    <!--Panel-->
+
+
+                                </div>
+
+                                <div class="col-sm-6 summary">
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body ">
+                                            <h4 class="h4color">Description</h4>
+                                            <!--heading-->
+                                            <hr style="margin: 0;">
+                                            <div class="sm-gap"></div>
+                                            <!--Gap-->
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <span class="labData">{{parent.DescDeails}}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--Body-->
+
+                                    </div>
+                                    <!--Panel-->
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--ContainerFluid withScroll-->
+
+            </div>
+            <!--FolderTab-->
+
+            <div role="tabpanel" class="tab-pane fade getactive" id="property">
+                <div class="sm-gap"></div>
+                <!--Gap-->
+
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll">
+                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                <tbody ng-repeat="parent in PropertyDetails" class="wordalign rowColor">
+                                    <tr data-toggle="collapse" data-parent="#accordion" ng-click="proptabshowhiderowbtn=!proptabshowhiderowbtn" href="#proptab{{parent.PropertyId}}{{$index}}" aria-expanded="false">
+                                        <td class="borderNone" style="vertical-align:middle">
+                                            <span ng-hide="!proptabshowhiderowbtn"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                            <span ng-hide="proptabshowhiderowbtn"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">Property RSN </div>
+                                            <div class="labData">{{parent.PropertyId}}</div>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">Roll#</div>
+                                            <div class="labData">{{parent.Roll}}</div>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">Plan/Lot/Block</div>
+                                            <div class="labData">{{parent.PlanLotBlock}}</div>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">Relation</div>
+                                            <div class="labData">{{parent.Relation}}</div>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">Address</div>
+                                            <div class="labData">{{parent.Address}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="collapse" id="proptab{{parent.PropertyId}}{{$index}}">
+                                        <td colspan="6">
+                                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                <tbody style="background-color:#ffffff">
+                                                    <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showgeneraltab=!showgeneraltab;" href="#showgeneraltab{{$index}}" aria-expanded="false">
+                                                        <td colspan="4">
+                                                            <span ng-hide="showgeneraltab"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                                            <span ng-hide="!showgeneraltab"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; General
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="collapse in" id="showgeneraltab{{$index}}">
+                                                        <td colspan="4">
+                                                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                <tbody style="background-color:#ffffff">
+                                                                    <tr class="borderNone">
+                                                                        <td class="borderNone">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Name</div>
+                                                                                    <div class="labData">{{parent.Name}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-2">
+                                                                                    <div class="lab">Property Id</div>
+                                                                                    <div class="labData">{{parent.PropertyId}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Roll#</div>
+                                                                                    <div class="labData">{{parent.Roll}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Type</div>
+                                                                                    <div class="labData">{{parent.PropertyType}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="xs-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="lab">Address</div>
+                                                                                    <div class="labData">{{parent.AddressInDetail}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="lab">Legal Descriptions</div>
+                                                                                    <div class="labData">{{parent.LegalDesc}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="xs-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="lab">Comments</div>
+                                                                                    <div class="labData">{{parent.Comment}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tr class="xs-gap"></tr>
+                                                <tbody style="background-color:#ffffff">
+                                                    <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showadditionaldetails=!showadditionaldetails;" href="#showadditionaldetails{{$index}}" aria-expanded="false">
+                                                        <td colspan="4">
+                                                            <span ng-hide="showadditionaldetails"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                                            <span ng-hide="!showadditionaldetails"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; Additional Details
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="collapse in" id="showadditionaldetails{{$index}}">
+                                                        <td colspan="4">
+                                                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                <tbody style="background-color:#ffffff">
+                                                                    <tr class="borderNone">
+                                                                        <td class="borderNone">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Plan</div>
+                                                                                    <div class="labData">{{parent.Plan}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Lot</div>
+                                                                                    <div class="labData">{{parent.Lot}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Block</div>
+                                                                                    <div class="labData">{{parent.Block}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">X</div>
+                                                                                    <div class="labData">{{parent.X}}</div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="sm-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Y</div>
+                                                                                    <div class="labData">{{parent.Y}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">GIS PID</div>
+                                                                                    <div class="labData">{{parent.GISId}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Parent ID</div>
+                                                                                    <div class="labData">{{parent.ParentId}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Family ID</div>
+                                                                                    <div class="labData">{{parent.FamilyId}}</div>
+                                                                                </div>
+
+
+
+                                                                            </div>
+                                                                            <div class="sm-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Obsolete On</div>
+                                                                                    <div class="labData">{{parent.ObsoluteOn}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Zoning 1</div>
+                                                                                    <div class="labData">{{parent.Zone1}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Zoning 2</div>
+                                                                                    <div class="labData">{{parent.Zone2}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Zoning 3</div>
+                                                                                    <div class="labData">{{parent.Zone3}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="sm-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Zoning 4</div>
+                                                                                    <div class="labData">{{parent.Zone4}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Zoning 5</div>
+                                                                                    <div class="labData">{{parent.Zone5}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Frontage</div>
+                                                                                    <div class="labData">{{parent.Frontage}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Sec/Twn/Rge</div>
+                                                                                    <div class="labData">{{parent.SecTwnRge}}</div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="sm-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Route</div>
+                                                                                    <div class="labData">{{parent.Route}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Area</div>
+                                                                                    <div class="labData">{{parent.Area}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Depth</div>
+                                                                                    <div class="labData">{{parent.Depth}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="lab">Created</div>
+                                                                                    <div class="labData">{{parent.CreatedOn}}</div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="sm-gap"></div>
+                            <div class="sm-gap"></div>
+                            <div class="sm-gap"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade getactive" id="people">
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll">
+                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                <tbody ng-repeat="parent in PeopleDetails" class="wordalign rowColor">
+                                    <tr data-toggle="collapse" data-parent="#accordion" ng-click="peopletabshowhiderowbtn=!peopletabshowhiderowbtn" href="#peopletab{{parent.PeopleId}}{{$index}}" aria-expanded="false">
+                                        <td class="borderNone" style="vertical-align:middle">
+                                            <span ng-hide="!peopletabshowhiderowbtn"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                            <span ng-hide="peopletabshowhiderowbtn"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">People RSN </div>
+                                            <div class="labData">{{parent.PeopleId}}</div>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">People Role</div>
+                                            <div class="labData">{{parent.PersonRole}}</div>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">Name</div>
+                                            <div class="labData">{{parent.Name}}</div>
+                                        </td>
+                                        <td class="borderNone">
+                                            <div class="lab">Telephone</div>
+                                            <div class="labData">{{parent.TelePhone}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="collapse" id="peopletab{{parent.PeopleId}}{{$index}}">
+                                        <td colspan="5">
+                                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                <tbody style="background-color:#ffffff">
+                                                    <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showgeneralpeopletab=!showgeneralpeopletab;" href="#showgeneralpeopletab{{$index}}" aria-expanded="false">
+                                                        <td>
+                                                            <span ng-hide="showgeneralpeopletab"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                                            <span ng-hide="!showgeneralpeopletab"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; General
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="collapse in" id="showgeneralpeopletab{{$index}}">
+                                                        <td>
+                                                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                <tbody style="background-color:#ffffff">
+                                                                    <tr class="borderNone">
+                                                                        <td class="borderNone">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Contact</div>
+                                                                                    <div class="labData">{{parent.ContactName}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Organization</div>
+                                                                                    <div class="labData">{{parent.Organization}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Status</div>
+                                                                                    <div class="labData">{{parent.Status}}</div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="xs-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Type</div>
+                                                                                    <div class="labData">{{parent.PersonRole}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Row Id</div>
+                                                                                    <div class="labData">{{parent.PeopleId}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Parent Id</div>
+                                                                                    <div class="labData">{{parent.ParentId}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="xs-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="lab">Email</div>
+                                                                                    <div class="labData">{{parent.EmailAddress}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="lab">Address</div>
+                                                                                    <div class="labData">{{parent.Address}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="lab">Comments</div>
+                                                                                    <div class="labData">{{parent.Comments}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tr class="xs-gap"></tr>
+                                                <tbody style="background-color:#ffffff">
+                                                    <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showadditionaldetailspeople=!showadditionaldetailspeople;" href="#showadditionaldetailspeople{{$index}}" aria-expanded="false">
+                                                        <td>
+                                                            <span ng-hide="showadditionaldetailspeople"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                                            <span ng-hide="!showadditionaldetailspeople"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; Additional Details
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="collapse in" id="showadditionaldetailspeople{{$index}}">
+                                                        <td>
+                                                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                <tbody style="background-color:#ffffff">
+                                                                    <tr class="borderNone">
+                                                                        <td class="borderNone">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Date of birth</div>
+                                                                                    <div class="labData">{{parent.DateOfBirth}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Reference File #</div>
+                                                                                    <div class="labData">{{parent.Lot}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Family Id</div>
+                                                                                    <div class="labData">{{parent.Block}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="xs-gap"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Licence #</div>
+                                                                                    <div class="labData">{{parent.Licence}}</div>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="lab">Source code</div>
+                                                                                    <div>{{parent.SourceCode}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="sm-gap"></div>
+                            <div class="sm-gap"></div>
+                            <div class="sm-gap"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade getactive" id="folderinfo">
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+                            <div class="row">
+                                <div class="col-sm-2" style="padding-top:10px;padding-bottom:5px" data-toggle="collapse" data-parent="#accordion" ng-click="folderinfosectionall=!folderinfosectionall;collapseExpandAll(folderinfosectionall)" aria-expanded="false">
+                                    <i class="fa fa-plus-square-o" ng-hide="!folderinfosectionall" aria-hidden="true"></i>
+                                    <i class="fa fa-minus-square-o" ng-hide="folderinfosectionall" aria-hidden="true"></i>
+                                    <span ng-hide="folderinfosectionall">Collapse All</span>
+                                    <span ng-hide="!folderinfosectionall">Expand All</span>
+                                </div>
+                            </div>
+                            <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                <thead>
+                                    <tr class="listGrouping">
+                                        <td style="width:50%">Info Description  </td>
+                                        <td style="width:5%"><i class="fa fa-flag" aria-hidden="true" style="color: #d43c3c"></i></td>
+                                        <td>Info Value</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="scroll">
+                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                    <tbody style="background-color:#ffffff" ng-repeat="parent in FolderInfoDetails">
+                                        <tr data-toggle="collapse" class="listGrouping collapseall" data-parent="#accordion" id="collapse{{parent.dataCollapse}}" ng-click="folderinfosectionClick()" href="#folderinfolistsec{{parent.dataCollapse}}" aria-expanded="false">
+                                            <td colspan="3">
+                                                <span ng-hide="folderinfosection" class="fa fa-chevron-circle-down"></span>
+                                                <span ng-hide="!folderinfosection" class="fa fa-chevron-circle-right"></span>&nbsp;{{parent.key}} ({{parent.itemlength}})
+                                            </td>
+                                        </tr>
+                                        <tr class="collapse wordalign collapse in" id="folderinfolistsec{{parent.dataCollapse}}" style="background:#f7f1f1">
+                                            <td colspan="3" style="width:100%">
+                                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;">
+                                                    <tbody>
+                                                        <tr ng-repeat="item in parent.items">
+                                                            <td style="width:50%">
+                                                                {{item.infodesc}}
+                                                            </td>
+                                                            <td style="width:5%">
+                                                                <span ng-if="item.mandatory=='Y'" style="color: #d43c3c"><i class="fa fa-flag" aria-hidden="true"></i></span>
+                                                            </td>
+                                                            <td ng-if="item.infotype=='ALPHA' || item.infotype=='A'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <input class="form-control" type="text" placeholder="Enter Text or Number" ng-model="item.infovalue" ng-model-options="{ updateOn: 'blur' }" ng-change="inputChange(item.infovalue, item)" />
+                                                            </td>
+                                                            <td ng-if="item.infotype=='NUMERIC' || item.infotype=='N'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <input class="form-control" type="text" placeholder="Enter Number" ng-model="item.infovalue" ng-model-options="{ updateOn: 'blur' }" ng-change="inputChange(item.infovalue, item)" />
+                                                            </td>
+                                                            <td ng-if="item.infotype=='SQL'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <input class="form-control" type="text" placeholder="Enter Query" ng-model="item.infovalue" ng-model-options="{ updateOn: 'blur' }" ng-change="inputChange(item.infovalue, item)" />
+                                                            </td>
+                                                            <td ng-if="item.infotype=='URL' || item.infotype=='U'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <input class="form-control" type="text" placeholder="Enter Query" ng-model="item.infovalue" ng-model-options="{ updateOn: 'blur' }" ng-change="inputChange(item.infovalue, item)" />
+                                                            </td>
+                                                            <td ng-if="item.infotype=='BOOLEAN' || item.infotype=='B'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <input type="radio" class="" name="{{item.infocode}}" ng-checked="{{item.infovalue.toLowerCase()=='yes' || item.infovalue.toLowerCase()=='y'}}" ng-click="yesRadioSelected(item)" id="radioYes" />Yes
+                                                                <input type="radio" class="" name="{{item.infocode}}" ng-checked="{{item.infovalue.toLowerCase()=='no' ||item.infovalue.toLowerCase()=='n'}}" ng-click="noRadioSelected(item)" id="radioNo" />No
+                                                            </td>
+
+                                                            <td ng-if="item.infotype=='DATE' || item.infotype=='D'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <div class='input-group date'>
+                                                                    <input type='text' class="form-control" ng-blur="DateChanger(item.infovalue, item)" ng-model="item.infovalue" />
+                                                                    <span class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td ng-if="item.infotype=='PICK' || item.infotype=='P'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+
+                                                                <div class="col-sm-12 colDataTopBot input-group">
+                                                                    <textarea class="form-control" rows="1" ng-model="item.selectedValue" ng-model-options="{ updateOn: 'blur' }" ng-change="inputChange(item.infovalue, item)"></textarea>
+                                                                    <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#infoValueModal" ng-model="chooseInfoValue" ng-click="openInfoValueModal(item, 'folderinfo')">
+                                                                        <i class="glyphicon glyphicon-hand-up"></i>
+                                                                    </span>
+                                                                </div>
+
+                                                            </td>
+                                                            <td ng-if="item.infotype=='MULTI_PICK' || item.infotype=='M' " ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <div class="col-sm-12 colDataTopBot input-group">
+                                                                    <textarea class="form-control" rows="1" ng-model="item.selectedValue" ng-model-options="{ updateOn: 'blur' }" ng-change="inputChange(item.infovalue, item)"></textarea>
+                                                                    <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#infoValueModal" ng-model="chooseInfoValue" ng-click="openInfoValueModal(item, 'folderinfo')">
+                                                                        <i class="glyphicon glyphicon-hand-up"></i>
+                                                                    </span>
+                                                                </div>
+
+                                                            </td>
+                                                            <td ng-if="item.infotype=='CHOOSE' || item.infotype=='C'" ng-class="{'requiredDiv': item.valuerequired=='Y'}">
+                                                                <select class="form-control" id="Select1" type="text" data-placeholder="Pick Value" ng-model="item.selectedValue"
+                                                                        ng-change="SelectChange(item.selectedValue, item)" ng-options="vals.text for vals in item.validinfo"></select>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody style="border:0px !important">
+                                        <tr style="border:0px !important">
+                                            <td style="border:0px !important">
+                                                <div class="sm-gap"></div>
+                                                <div class="sm-gap"></div>
+                                                <div class="sm-gap"></div>
+                                                <div class="sm-gap"></div>
+                                                <div class="sm-gap"></div>
+                                                <div class="sm-gap"></div>
+                                                <div class="sm-gap"></div>
+                                                <div class="sm-gap"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--folderinfoTabPanel-->
+
+            <div role="tabpanel" class="tab-pane fade getactive" id="inspection">
+                <div class="container-fluid">
+                    <div class="sm-gap"></div>
+                    <div class="panel panel-default">
+                        <div class="panel-body  padding-l-r0" ng-if="showAddInspections == false">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs navTabULbg" role="tablist" id="processinspection" style="padding-left:10px">
+                                <li role="presentation" class="active" style="margin-bottom:0px"><a href="#attempt" aria-controls="result" role="tab" data-toggle="tab">Attempt</a></li>
+                                <li role="presentation" style="margin-bottom:0px" ng-click="setdeficiencyheight()"><a href="#deficiencies" aria-controls="deficiencies" role="tab" data-toggle="tab">Deficiencies</a></li>
+                                <li role="presentation" ng-repeat="processfreefromtabitem in validFolerProcessFreeFormTabList track by $index" style="margin-bottom:0px">
+                                    <a href="/#folderprocessfreefromtabid{{$index}}" aria-controls="folderprocessfreefromtabid{{$index}}" role="tab" data-toggle="tab" ng-click="selectValidFolderProcessFreeFormTab(processfreefromtabitem.freeformcode,FolderDetails[0].RowId,$index,InspectionProcessMetricsDetails.ProcessRSN)">{{processfreefromtabitem.tabdesc}}</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="attempt">
+                                    <div class="container-fluid scroll" style="background: #fff;">
+                                        <div id="demo">
+                                            <div class="row" id="testrow">
+
+                                                <div class="col-sm-2">
+                                                    <a class="toattempt">
+                                                        <span class="deficiencylabel padding-l-r0">Process Attempt</span>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <a class="toprocessinfo">
+                                                        <span class="deficiencylabel padding-l-r0" ng-if="FolderProcessInfoDetails.length > 0">Process Info</span>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <a class="tochecklist">
+                                                        <span class="deficiencylabel padding-l-r0" ng-if="FolderProcessChecklistDetails.length > 0">Process checklist</span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                            <!--#Links-->
+
+                                            <div class="sm-gap"></div>
+
+                                            <div class="row" id="metrics">
+                                                <div class="col-sm-12">
+
+                                                    <h4 class="h4color">{{InspectionProcessMetricsDetails.ProcessDesc}}({{InspectionProcessMetricsDetails.ProcessCode}})</h4>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <div class="row mar-bottom-20">
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">Team</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.TeamDesc}}({{InspectionProcessMetricsDetails.TeamCode}})</div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">Assigned User</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.AssignedUser}}</div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">Status</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.StatusDesc}} ({{InspectionProcessMetricsDetails.StatusCode}})</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mar-bottom-20">
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">To Start</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.ScheduleStartDate}}</div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">To End</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.ScheduleEndDate}}</div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">Attempt Count</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.AttemptCount}}</div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="col-sm-12">
+                                                                <div class="lab"> Process Comment</div>
+                                                                <div class="input-group">
+                                                                    <textarea class="form-control" rows="4" ng-model="InspectionProcessMetricsDetails.ProcessComment" id="Textarea1"></textarea>
+                                                                    <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#myClauseModal" ng-model="chooseProcessComment" ng-click="openclauseForm('','fromProcessComment')">
+                                                                        <i class="glyphicon glyphicon-hand-up"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <div class="row mar-bottom-20">
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">Started</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.StartDate}} </div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">Ended</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.EndDate}} </div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="lab">Inspection Minute</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.InspMinute}}</div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="row mar-bottom-20">
+                                                                <div class="col-sm-6">
+                                                                    <div class="lab">Priority</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.Priority}}</div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="lab">Reference</div>
+                                                                    <div class="labData">{{InspectionProcessMetricsDetails.Reference}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--Processmetrics-->
+
+
+
+                                            <div class="sm-gap"></div>
+
+                                            <div class="row" id="processattempt">
+
+                                                <div class="col-sm-12">
+
+                                                    <h4 class="h4color dottedStrip ">Process Attempt</h4>
+
+
+                                                    <div class="row mar-bottom-20">
+                                                        <div class="col-sm-4">
+                                                            Result
+                                                            <select class="form-control" ng-options="option.name for option in InspectionProcessMetricsDetails.ResultList track by option.value"
+                                                                    ng-model="InspectionProcessMetricsDetails.SelectedAttempResultCode"></select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            Time
+                                                            <input type="text" placeholder="Enter Time..." class="form-control" ng-model="InspectionProcessMetricsDetails.AttemptTime">
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            Overtime
+                                                            <input type="text" placeholder="Enter Overtime..." class="form-control" ng-model="InspectionProcessMetricsDetails.AttemptOverTime">
+                                                        </div>
+
+
+                                                    </div>
+                                                    <!--RowEnd-->
+
+                                                    <div class="row mar-bottom-20">
+                                                        <div class="col-sm-4">
+                                                            Unit
+                                                            <select class="form-control" ng-model="InspectionProcessMetricsDetails.AttemptUnit">
+                                                                <option data-ng-repeat="t in InspectionProcessMetricsDetails.UnitTypeList" value="{{t.value}}">{{t.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            Mileage
+                                                            <input type="text" class="form-control" placeholder="Enter Mileage..." ng-model="InspectionProcessMetricsDetails.AttemptMileage">
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            Expense
+                                                            <input type="text" placeholder="Enter Expense..." class="form-control" ng-model="InspectionProcessMetricsDetails.AttemptExpense" />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row mar-bottom-20">
+                                                        <div class="col-sm-6">
+                                                            Signature
+                                                            <select class="form-control" ng-model="InspectionProcessMetricsDetails.AttemptSignType">
+                                                                <option data-ng-repeat="t in InspectionProcessMetricsDetails.SignatureTypeList" value="{{t.value}}">{{t.name}}</option>
+                                                            </select>
+                                                            <div ng-controller="SignCtrl">
+                                                                <div class="input-group">
+                                                                    <canvas id="canvas" placeholder="Click here to sign..." class="form-control canvasStyle"
+                                                                            ng-click="mouseup($event)"></canvas>
+
+                                                                    <span class="input-group-addon btn btn-danger canvasDander" ng-click="clearImage(InspectionProcessMetricsDetails)">
+                                                                        <i class="fa fa-eraser"></i>
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <button type="button" data-toggle="modal" ng-click="rescheduleInspectionModal()" class="btn btn-default col-sm-6">Reschedule</button>
+                                                            <button type="button" ng-click="completeInspection(InspectionProcessMetricsDetails)" class="btn btn-info col-sm-6">Complete</button>
+
+                                                        </div>
+                                                        <div class="col-sm-6 ">
+
+                                                            <div class="xs-gap"></div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12 ">
+                                                                    Attempt Comment
+                                                                    <div class="input-group">
+                                                                        <textarea class="form-control" placeholder="Enter Attempt Comments..." ng-model="InspectionProcessMetricsDetails.AttemptComment" rows="10"></textarea>
+                                                                        <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#myClauseModal" ng-model="chooseProcessAttempt"
+                                                                              ng-click="openclauseForm('', 'fromAttemptComment')">
+                                                                            <i class="glyphicon glyphicon-hand-up"></i>
+                                                                        </span>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="sm-gap"></div>
+
+                                                        </div>
+                                                    </div>
+                                                    <!--RowEnd-->
+
+                                                </div>
+
+                                            </div>
+                                            <!--Addattempt-->
+
+                                            <div class="sm-gap"></div>
+
+                                            <div class="row" id="info" ng-if="FolderProcessInfoDetails.length > 0">
+
+                                                <div class="col-sm-12">
+
+                                                    <h4 class="h4color dottedStrip">Process Info</h4>
+
+
+                                                    <div ng-if="FolderProcessInfoDetails.length > 0">
+                                                        <div class="row lab">
+                                                            <div class="col-sm-6 colDataTopBot">Description</div>
+                                                            <div class="col-sm-6 colDataTopBot">Value</div>
+
+                                                        </div>
+                                                        <!--HeadingRow-->
+                                                        <div data-ng-repeat="parent in FolderProcessInfoDetails" class="row wordalign">
+
+
+                                                            <div class="col-sm-12 listGrouping" data-toggle="collapse" data-parent="#accordion" ng-click="folderprocessinfosection=!folderprocessinfosection"
+                                                                 href="#processinfo{{parent.processCollapse}}" aria-expanded="false">
+                                                                <i ng-hide="folderprocessinfosection" class="fa fa-caret-down"></i>
+                                                                <i ng-hide="!folderprocessinfosection" class="fa fa-caret-right"></i>&nbsp;{{parent.key}}
+                                                            </div>
+
+                                                            <!--ListGrouping-->
+
+                                                            <div class="row">
+                                                                <div class="col-sm-12 wordalign collapse in" id="processinfo{{parent.processCollapse}}">
+                                                                    <div data-ng-repeat="child in parent.elements">
+
+                                                                        <div class="row colDataLeftRight" ng-class-even="'rowInspectionItemColor'">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-6 colDataTopBot">
+                                                                                    <div>
+                                                                                        <span class="labData">
+                                                                                            {{child.infodesc}}
+                                                                                            <span ng-if="child.mandatoryflag=='Y'" style="color: red">&nbsp;┼</span>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!--DescriptionColumnEnd-->
+
+                                                                                <div class="col-sm-6 colDataTopBot">
+                                                                                    <div ng-if="child.infotype=='ALPHA' || child.infotype=='A' ">
+                                                                                        <input type="text" class="form-control" placeholder="Enter Text or Number..." ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }"
+                                                                                               ng-change="FolderProcessInfoValueChange(child.infovalue, child)" />
+
+                                                                                    </div>
+                                                                                    <div ng-if="child.infotype=='URL' || child.infotype=='U' ">
+                                                                                        <input type="text" class="form-control" placeholder="Enter Text or Number..." ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }"
+                                                                                               ng-change="FolderProcessInfoValueChange(child.infovalue, child)" />
+
+                                                                                    </div>
+
+                                                                                    <div ng-if="child.infotype=='NUMERIC' || child.infotype=='N' ">
+                                                                                        <input type="text" class="form-control" value="{{child.infovalue}}" placeholder="Enter Number..." ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }"
+                                                                                               ng-change="FolderProcessInfoValueChange(child.infovalue, child)" />
+                                                                                    </div>
+                                                                                    <div ng-if="child.infotype=='SQL'">
+                                                                                        <input type="text" class="form-control" value="{{child.infovalue}}" placeholder="Enter SQL Query..." ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }"
+                                                                                               ng-change="FolderProcessInfoValueChange(child.infovalue, child)" />
+                                                                                    </div>
+
+                                                                                    <div ng-if="child.infotype=='BOOLEAN' || child.infotype=='B'">
+                                                                                        <input type="radio" name="processinfo{{child.infocode}}" ng-checked="{{child.infovalue.toLowerCase()=='yes' || child.infovalue.toLowerCase()=='y'}}" ng-click="yesProcessInfoSelected(child)" id="radioYesprocessinfo" />Yes
+                                                                                        <input type="radio" name="processinfo{{child.infocode}}" ng-checked="{{child.infovalue.toLowerCase()=='no' ||child.infovalue.toLowerCase()=='n'}}" ng-click="noProcessInfoSelected(child)" id="radioNoprocessinfo" />No
+                                                                                    </div>
+
+                                                                                    <!--<div ng-if="child.infotype=='BOOLEAN' || child.infotype=='B' ">
+                                                                                        <label>
+                                                                                            <input type="radio" name="{{child.infocode}}" value="Yes" ng-model="child.infovalue"
+                                                                                                   ng-change="FolderProcessInfoValueChange(child.infovalue, child)" />
+                                                                                            Yes
+                                                                                        </label>
+                                                                                        <label>
+                                                                                            <input type="radio" name="{{child.infocode}}" value="No" ng-model="child.infovalue"
+                                                                                                   ng-change="FolderProcessInfoValueChange(child.infovalue, child)" />
+                                                                                            No
+                                                                                        </label>
+                                                                                    </div>-->
+
+                                                                                    <div ng-if="child.infotype=='DATE' || child.infotype=='D' ">
+                                                                                        <div class='input-group date'>
+                                                                                            <input type='text' class="form-control" placeholder="Enter Date..." ng-blur="FolderProcessInfoDateChange(child.infovalue, child)" ng-model="child.infovalue" />
+                                                                                            <span class="input-group-addon">
+                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                            </span>
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                    <div ng-if="child.infotype=='PICK' || child.infotype=='P'">
+                                                                                        <div class="col-sm-12 colDataTopBot input-group">
+                                                                                            <textarea class="form-control" placeholder="Pick Info..." rows="1" ng-model="child.selectedValue" ng-model-options="{ updateOn: 'blur' }" ng-change="FolderProcessInfoValueChange(child.infovalue, child)"></textarea>
+                                                                                            <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#infoValueModal" ng-click="openInfoValueModal(child, 'folderprocessinfo')">
+                                                                                                <i class="glyphicon glyphicon-hand-up"></i>
+                                                                                            </span>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div ng-if="child.infotype=='MULTI_PICK' || child.infotype=='M' ">
+                                                                                        <div class="col-sm-12 colDataTopBot input-group">
+                                                                                            <textarea class="form-control" placeholder="Pick Multiple Info..." rows="1" ng-model="child.selectedValue" ng-model-options="{ updateOn: 'blur' }" ng-change="FolderProcessInfoValueChange(child.infovalue, child)"></textarea>
+                                                                                            <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#infoValueModal" ng-click="openInfoValueModal(child, 'folderprocessinfo')">
+                                                                                                <i class="glyphicon glyphicon-hand-up"></i>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div ng-if="child.infotype=='CHOOSE' || child.infotype=='C'">
+
+                                                                                        <select id="Select3" class="form-control" type="text" placeholder="Choose Value" ng-model="options.value"
+                                                                                                ng-change="FolderProcessInfoSelectionChange(options.value, child)" ng-options="options.text for options in child.validprocessinfo">
+                                                                                            <!--<option value="">Choose Info Value</option>-->
+                                                                                        </select>
+
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <!--ValueColumnEnd-->
+
+                                                                            </div>
+                                                                            <!--ColDataEnd-->
+
+                                                                        </div>
+                                                                        <!--RowDataEnd-->
+
+
+
+                                                                    </div>
+                                                                    <!--collapseDiv-->
+                                                                </div>
+                                                            </div>
+                                                            <!--ListTableData-->
+
+                                                        </div>
+                                                        <!--ngDataParent-->
+
+                                                    </div>
+                                                    <!--ngIfEnd-->
+
+
+
+
+                                                </div>
+                                                <!--ColEnd-->
+
+                                            </div>
+                                            <!--ProcessInfo-->
+
+                                            <div class="sm-gap"></div>
+
+                                            <div class="row" id="checklistcustomscroll" ng-if="FolderProcessChecklistDetails.length > 0">
+
+                                                <div class="col-sm-12">
+
+                                                    <h4 class="h4color dottedStrip myDiv">Checklist</h4>
+
+
+
+                                                    <div class="row lab borderBottom">
+
+                                                        <div class="col-sm-3">
+                                                            <div class="radioLabelYes">Yes</div>
+                                                            <div class="radioLabelNo">No</div>
+                                                            <div class="radioLabelNA">N/A</div>
+
+                                                        </div>
+                                                        <div class="col-sm-4">Details</div>
+                                                        <div class="col-sm-5">Comments</div>
+
+                                                        <div class="xs-gap"></div>
+                                                    </div>
+                                                    <!--HeadingRow-->
+
+                                                    <div class="xs-gap"></div>
+                                                    <div data-ng-repeat="parent in FolderProcessChecklistDetails" class="wordalign">
+
+                                                        <div class="wordalign paddingSpace cursorPointer" data-toggle="collapse" ng-click="checklistsection=!checklistsection" href="#checklist{{parent.checklistgrouperID}}" aria-expanded="false">
+                                                            <i ng-hide="checklistsection" class="fa fa-caret-down"></i>
+                                                            <i ng-hide="!checklistsection" class="fa fa-caret-right"></i>&nbsp;{{parent.key}} ({{parent.checklistItemlength}})
+
+
+                                                        </div>
+                                                        <!--ListGrouping-->
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12" id="checklist{{parent.checklistgrouperID}}">
+
+                                                                <div class="wordalign" data-ng-repeat="child in parent.checklistItems">
+
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="col-sm-3 ">
+                                                                                <div class="radioGreen">
+                                                                                    <input type="radio" class="" name="{{child.checklistcode}}" ng-checked="{{child.yesNoNA=='yes'}}" ng-click="yesSelected(child)" id="radioYes" />
+                                                                                </div>
+
+                                                                                <div class="radioRed">
+                                                                                    <input type="radio" class="" name="{{child.checklistcode}}" ng-checked="{{child.yesNoNA=='no'}}" ng-click="noSelected(child)" id="radioNo" />
+                                                                                </div>
+
+                                                                                <div class="radioTrans">
+                                                                                    <input type="radio" class="" name="{{child.checklistcode}}" ng-checked="{{child.yesNoNA=='na'}}" ng-click="flagSelected(child)" id="radioNA" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 colDataTopBot">
+                                                                                {{child.checklistdesc}}
+                                                                            </div>
+                                                                            <div class="col-sm-5 colDataTopBot input-group">
+                                                                                <textarea class="form-control" rows="1" ng-model="child.comment" id="commentarea" ng-change="updatecomment(child)"></textarea>
+                                                                                <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#myClauseModal" ng-model="chooseclause" ng-click="openclauseForm(child.checklistcode, 'fromChecklist')">
+                                                                                    <i class="glyphicon glyphicon-hand-up"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--ColDataEnd-->
+
+                                                                    </div>
+                                                                    <!--RowEnd-->
+
+                                                                </div>
+                                                                <!--ng-repeat child-->
+                                                            </div>
+                                                            <!--ColEnd-->
+
+                                                        </div>
+                                                        <!--RowEmd-->
+
+
+                                                    </div>
+                                                    <!--ngChecklistDetails-->
+                                                    <!--ng-IfEnd-->
+
+                                                </div>
+                                                <!--ColEnd-->
+                                                <div class="med-gap"></div>
+                                                <div class="med-gap"></div>
+                                            </div>
+                                            <!--ChecklistEnd-->
+
+                                        </div>
+                                        <div class="sm-gap"></div>
+                                        <div class="sm-gap"></div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="deficiencies" ng-controller="deficiencycontroller" style="background-color: #fff;">
+                                    <div style="background: #fff;">
+                                        <div class="panel-default">
+                                            <div class="panel-body" id="olddiv">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <button class="btn btn-link" type="button" ng-click="addDeficiency()" id="addbutton">
+                                                            <i class="fa fa-plus-circle"></i>&nbsp;Add Deficiency
+                                                        </button>
+                                                        <div class="dropdown" ng-hide="!IsHidden" style="display: inline-block">
+                                                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                <i class="fa fa-cog"></i>&nbsp;
+                                                                Options
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                                <li ng-click="deleteCheckedDeficiency()" id="delbutton" class="defOptionLink"><i class="fa fa-trash"></i>&nbsp;Delete</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div ng-if="IsHidden">
+                                                    <div id="deficiencyGrid">
+                                                        <div class="col-sm-12 scrollAddedDeficiency">
+                                                            <table class="table table-hover borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                <tbody class="borderNone" ng-repeat="parent in selectedDeficiency">
+                                                                    <tr class="listGrouping-white borderNone" data-toggle="collapse" data-parent="#accordion" ng-click="deficiencysection=!deficiencysection" href="#{{parent.dataCollapse}}" aria-expanded="true">
+                                                                        <td colspan="8" class="borderNone">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <span ng-hide="deficiencysection"><i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size:20px;"></i>&nbsp;{{parent.groupname}} </span>
+                                                                                    <span ng-hide="!deficiencysection"><i class="fa fa-chevron-circle-right" aria-hidden="true" style="font-size:20px;"></i>&nbsp;{{parent.groupname}} </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="collapse in background-color-white" id="{{parent.dataCollapse}}">
+                                                                        <td colspan="8" class="borderNone background-color-white padding-left-40">
+                                                                            <table class="table borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                                <tbody class="borderNone" style="background-color:#ffffff">
+                                                                                    <tr class="borderNone" ng-repeat="item in parent.items">
+                                                                                        <td class="borderNone">
+                                                                                            <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:1px">
+                                                                                                <label style="font-size: 20px;padding-left:0px">
+                                                                                                    <input type="checkbox" class="def-margin" name="addedDef" ng-checked="false" id="addedDef{{$index}}" ng-model="item.isaddeddefchecked" ng-click="selectAddedDeficiency(item,$index)" />
+                                                                                                    <span class="cr" id="addedDef{{$index}}" ng-class="{'activeRow': item.isaddeddefchecked}"><i class="cr-icon fa fa-check"></i></span>
+                                                                                                </label>
+                                                                                            </span>
+                                                                                            <div style="color:#333;padding-left: 40px; padding-top: 5px;padding-bottom: 5px" data-toggle="modal" data-target="#myeditDeficiencyModal" ng-click="editDeficiencyForm(item)">{{item.deficiencydesc}}</div>
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="borderNone">
+                                                                        <td class="borderNone">
+                                                                            <div class="sm-gap"></div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-right">
+                                                        <div class="col-sm-12">
+                                                            <button class="btn btn-info" type="button" ng-click="saveDeficiency()">
+                                                                <i class="fa fa-floppy-o"></i>&nbsp;Save
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-if="!IsHidden" class="panel-body" id="newdiv">
+                                                <div class="row" id="deficiencyheader">
+                                                    <div class="col-sm-12">
+                                                        <button class="btn btnhover back-button" type="button" align="left" ng-click="backFromDeficiency()">
+                                                            <i class="fa fa-chevron-left"></i>&nbsp;Back
+                                                        </button>
+                                                    </div>
+                                                    <div class="sm-gap"></div>
+                                                    <div class="col-sm-12">
+                                                        <h4><i class="fa fa-search text-gray-light"></i>&nbsp;Add Deficiency</h4>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" name="filterlist" ng-model="filterdeficiency" ng-pluralize="" data-placeholder="Search from the list of deficiencies below" id="Text1" class="form-control" />
+                                                    </div>
+                                                    <div class="xs-gap"></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 scrollDeficiency">
+                                                        <table class="table table-bordered table-hover borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                            <tbody ng-repeat="category in FolderprocessDeficiencyDesc|filter:filterdeficiency" class="borderNone">
+                                                                <tr class="listGrouping-white borderNone" data-toggle="collapse" data-parent="#accordion" id="categorycollapse{{category.cateoryindex}}" ng-click="deficiencygroup=!deficiencygroup" href="#defi{{category.categorycode}}" aria-expanded="false">
+                                                                    <td colspan="8" class="borderNone">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:1px">
+                                                                                    <label style="font-size: 20px;padding-left:0px">
+                                                                                        <input type="checkbox" onclick="event.stopPropagation();" ng-click="checkAllCategoryItems(category.categorycode);" ng-model="category.iscategorychecked" />
+                                                                                        <span class="cr" ng-class="{'activeRow': category.iscategorychecked}"><i class="cr-icon fa fa-check"></i></span>
+                                                                                    </label>
+                                                                                </span>
+                                                                                <span ng-hide="!deficiencygroup"><i class="fa fa-chevron-circle-down" aria-hidden="true" style="padding-left:35px;font-size:20px;padding-top:4px"></i>&nbsp;{{category.categorydesc}}</span>
+                                                                                <span ng-hide="deficiencygroup"><i class="fa fa-chevron-circle-right" aria-hidden="true" style="padding-left:35px;font-size:20px;padding-top:4px"></i>&nbsp;{{category.categorydesc}}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="collapse borderNone background-color-white" id="defi{{category.categorycode}}">
+                                                                    <td colspan="8" class="borderNone padding-left-40 background-color-white">
+                                                                        <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                            <tbody class="borderNone" ng-repeat="subcategory in category.subcategorylist">
+                                                                                <tr data-toggle="collapse" class="borderNone" data-parent="#accordion" id="subcategorycollapse{{subcategory.subcateoryindex}}" ng-click="deficiencysubcategory=!deficiencysubcategory" href="#defisub{{subcategory.subcategorycode}}{{category.categorycode}}" aria-expanded="false">
+                                                                                    <td class="borderNone">
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-12">
+                                                                                                <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:1px">
+                                                                                                    <label style="font-size: 20px;padding-left:0px">
+                                                                                                        <input type="checkbox" onclick="event.stopPropagation();" ng-click="checkAllSubCategoryItems(category.categorycode,subcategory.subcategorycode);" ng-model="subcategory.issubcategorychecked" />
+                                                                                                        <span class="cr" ng-class="{'activeRow': subcategory.issubcategorychecked}"><i class="cr-icon fa fa-check"></i></span>
+                                                                                                    </label>
+                                                                                                </span>
+                                                                                                <span ng-hide="!deficiencysubcategory"><i class="fa fa-chevron-circle-down" aria-hidden="true" style="padding-left:35px;font-size:20px;padding-top:4px"></i>&nbsp;{{subcategory.subcategorydesc}} ({{subcategory.items.length}})</span>
+                                                                                                <span ng-hide="deficiencysubcategory"><i class="fa fa-chevron-circle-right" aria-hidden="true" style="padding-left:35px;font-size:20px;padding-top:4px"></i>&nbsp;{{subcategory.subcategorydesc}} ({{subcategory.items.length}})</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr class="collapse borderNone background-color-white" id="defisub{{subcategory.subcategorycode}}{{category.categorycode}}">
+                                                                                    <td colspan="8" class="borderNone padding-left-40 background-color-white">
+                                                                                        <table class="table table-hover borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                                            <tbody class="borderNone">
+                                                                                                <tr ng-repeat="item in subcategory.items" class="borderNone">
+                                                                                                    <td class="borderNone">
+                                                                                                        <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:1px">
+                                                                                                            <label style="font-size: 20px;padding-left:0px">
+                                                                                                                <input type="checkbox" value="{{item.deficiencytext}}" ng-model="item.isdeficiencyitemchecked" name="deficiencyCheck" id="deficiencyCheck{{$index}}" ng-click="deficiencySelection(item)" />
+                                                                                                                <span class="cr" ng-class="{'activeRow': item.isdeficiencyitemchecked}"><i class="cr-icon fa fa-check"></i></span>
+                                                                                                            </label>
+                                                                                                        </span>
+                                                                                                        <div style="color:#333;padding-left: 40px; padding-top: 5px;padding-bottom: 5px">{{item.deficiencydesc}}</div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="row text-right">
+                                                    <div class="col-sm-12">
+                                                        <button class="btn btn-info" type="button" ng-click="addToList()">
+                                                            <i class="fa fa-plus-circle"></i>&nbsp;Add to list
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!--deficiencyPanel-->
+                                <div role="tabpanel" class="tab-pane fade getactive" id="folderprocessfreefromtabid{{$index}}" ng-repeat="processfreefromtabitem in validFolerProcessFreeFormTabList track by $index">
+                                    <div class="sm-gap"></div>
+                                    <div class="container-fluid" ng-controller="FreeFormCtrl" ng-init="init(processfreefromtabitem.freeformcode, FolderDetails[0].RowId,processfreefromtabitem.parentname)">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div ng-include src="'views/folderprocessfreeform.html'"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--TabContent-->
+
+                        </div>
+
+                        <div class="panel-body  padding-l-r0" ng-if="showAddInspections == true">
+                            <div ng-include src="'views/addinspection.html'">
+                            </div>
+                        </div>
+                        <!--Body-->
+
+                    </div>
+                    <!--Panel-->
+
+                </div>
+                <!--ContainerFluid-->
+
+
+
+
+
+            </div>
+            <!--inspectionTabPanel-->
+
+            <div role="tabpanel" class="tab-pane fade getactive" id="attachment">
+
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll" style="padding-bottom: 40px;">
+                            <div ng-include src="'views/attachmenttab.html'">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- History Tab Start Here -->
+            <div role="tabpanel" class="tab-pane fade getactive" id="history">
+                <div class="sm-gap"></div>
+                <div class="container-fluid" ng-controller="HistoryTabCtrl">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll" style="padding-bottom: 40px;">
+                            <div ng-include src="'views/historytab.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="report" ng-if="reportCount>0" role="tabpanel" class="tab-pane fade getactive ">
+                <div class="sm-gap"></div>
+                <div class="container-fluid" ng-controller="ReportCtrl">
+                    <div style="padding-bottom: 40px;">
+                        <div ng-include src="'views/report.html'"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="folderprocesslist" role="tabpanel" class="tab-pane fade getactive ">
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll" style="padding-bottom: 40px;">
+                            <div ng-include src="'views/folderprocesslist.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane fade getactive" id="foldercomment">
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll">
+                            <div ng-include src="'views/foldercomment.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade getactive" id="folderfee">
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll">
+                            <div ng-include src="'views/folderfee.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade getactive" id="folderfixture">
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll">
+                            <div ng-include src="'views/folderfixture.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade getactive" id="folderDocument">
+                <div class="sm-gap"></div>
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll">
+                            <div ng-include src="'views/folderdocument.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade getactive" id="folderfreefromtabid{{$index}}" ng-repeat="freefromtabitem in validFolerFreeFormTabList track by $index">
+                <div class="sm-gap"></div>
+                <div class="container-fluid" ng-controller="FreeFormCtrl" ng-init="init(freefromtabitem.freeformcode, FolderDetails[0].RowId,freefromtabitem.parentname)">
+                    <div class="panel panel-default">
+                        <div class="panel-body scroll">
+                            <div ng-include src="'views/folderfreeform.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--TabPanesEnd-->
+
+    </div>
+    <!--ColForAllTabs-->
+</div>

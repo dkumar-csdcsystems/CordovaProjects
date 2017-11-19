@@ -1,0 +1,24 @@
+﻿<div class="container-fluid">
+    <div class="sm-gap"></div>
+    <!--GAP-->
+    <div class="panel panel-default borderBottom-0">
+        <div class="row" ng-controller="AddInspectionCtrl">
+            <div class="col-sm-5">
+                Process Type
+                <select data-ng-model="processType" class="form-control">
+                    <option data-ng-repeat="t in ProcessTypeList" value="{{t.value}}">{{t.name}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                Priority
+               <input type="text" class="form-control" ng-model="priority" />
+            </div>
+            <div class="col-sm-2" style="padding-top: 15px">
+                <button class="btn btn-link" type="button" ng-click="pushNewInspection()" id="addbutton">
+                    <i class="fa fa-plus-circle"></i>&nbsp;Add New Inspection                                                                   
+                </button>
+            </div>
+            <div class="sm-gap"></div>
+        </div>
+    </div>
+</div>

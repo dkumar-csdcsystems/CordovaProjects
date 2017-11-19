@@ -1,0 +1,926 @@
+
+<nav class="navbar navbar-default" id="topheader">
+    <div class="container-fluid" style="padding-left:5px;padding-right:5px">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="images/inspector-header.png" />
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" ng-controller="LogoutCtrl" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a title="Quick Sync" ng-click="QSDSync()">
+                        <i style="font-size:20px!important;color:#fff" class="fa fa-refresh" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="Logout()" class="dropdown-toggle">
+                        <i style="font-size:20px!important;color:#fff" class="fa fa-power-off" aria-hidden="true"></i>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="container-fluid" ng-controller="IndexCtrl">
+
+    <div class="row" id="inboxheader">
+        <div class="col-sm-6" style="padding-left:5px;padding-right:0px">
+            <h2 class="pull-left" style="margin-right: 10px;">{{currentview}}</h2>
+            <div class="dropdown pull-left">
+                <div class="btn btn-primary dropdown-toggle mar-top-drop" onclick="$('.dropdown-backdrop1').remove();" type="button" id="inboxOutboxDDM" aria-haspopup="true" aria-expanded="false" style="margin-left:5px;padding-left:12px;padding-right:12px" data-toggle="dropdown">
+                    <i class="fa fa-bars " aria-hidden="true"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="inboxOutboxDDM">
+                    <li><a style="cursor:pointer;padding: 10px 15px;" class="dropdown-item" ng-click="showInboxList()">Inbox</a></li>
+                    <li class="divider"></li>
+                    <li><a style="cursor:pointer;padding: 10px 15px;" class="dropdown-item" ng-click="showOutboxList()">Outbox</a></li>
+                    <li class="divider"></li>
+                    <li><a style="cursor:pointer;padding: 10px 15px;" class="dropdown-item" ng-click="showSearchSection()">Search</a></li>
+                    <li class="divider"></li>
+                    <li><a style="cursor:pointer;padding: 10px 15px;" class="dropdown-item" ng-click="showProjectViewSection()">Project</a></li>
+                </ul>
+            </div>
+
+
+            <div ng-if="!togglesearchsectiondiv">
+                <button type="button" class="btn btn-primary mar-top-drop" ng-click="onCalendarView()">
+                    <i class="fa fa-calendar " aria-hidden="true"></i>
+                </button>
+                <button type="button" ng-if="toggleoutboxdiv" class="btn btn-primary mar-top-drop" ng-click="moveBackToInbox()">
+                    <i class="fa fa-undo " aria-hidden="true"></i>
+                </button>
+                <button ng-if="!toggleoutboxdiv" type="button" ng-click="onEditInspection()"
+                        class="btn btn-primary mar-top-drop">
+                    <i class="fa fa-pencil-square-o " aria-hidden="true"></i>
+                </button>
+
+                <div class="dropdown pull-left">
+                    <div class="btn btn-primary dropdown-toggle mar-top-drop" onclick="$('.dropdown-backdrop1').remove();" type="button" id="setcustomfields" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+                        <i class="fa fa-cogs "></i>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="setcustomfields">
+                        <li><a style="cursor:pointer;padding: 10px 15px;" data-toggle="modal" id="columnFieldSettingModal" data-target="#inboxFieldSetting">Set Fields</a></li>
+                        <li class="divider"></li>
+                        <li><a style="cursor:pointer;padding: 10px 15px;" data-toggle="modal" id="columnSortSettingModal" data-target="#inboxSortSetting">Set Sort</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="dropdown pull-left">
+                    <div class="btn btn-primary dropdown-toggle mar-top-drop" onclick="$('.dropdown-backdrop1').remove();" type="button" id="filterDDM" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+                        <i class="fa fa-filter " aria-hidden="true"></i>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="filterDDM">
+                        <li><a style="cursor:pointer;padding: 10px 15px;" ng-click="onInboxOutboxFilter()" value="All">All</a></li>
+                        <li class="divider"></li>
+                        <li><a style="cursor:pointer;padding: 10px 15px;" ng-click="onInboxOutboxFilter('today')">Today</a></li>
+                        <li class="divider"></li>
+                        <li><a style="cursor:pointer;padding: 10px 15px;" ng-click="onInboxOutboxFilter('week')">Week</a></li>
+                        <li class="divider"></li>
+                        <li><a style="cursor:pointer;padding: 10px 15px;" ng-click="onInboxOutboxFilter('month')">Month</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div ng-if="togglesearchsectiondiv">
+                <button class="btn btn-primary mar-top-drop" type="button" id="Button2" ng-click="onAddFolder()">
+                    <span class="fa-stack fa-sm" style="height:1em;vertical-align:top">
+                        <i class="fa fa-plus-square fa-stack-1x" style="font-size: 15px;top:-3px;left:2px" aria-hidden="true"></i>
+                        <i class="fa fa-folder-o fa-stack-2x" style="font-size:25px" aria-hidden="true"></i>
+                    </span>
+
+                    <!--<i class="fa fa-plus-square" aria-hidden="true"><i class="fa fa-folder-o" aria-hidden="true" style="position: relative;right: 14px;font-size: 22px;"></i></i>-->
+                </button>
+                <button class="btn btn-primary mar-top-drop" type="button" ng-click="scanQRCode()">
+                    <span class="fa-stack fa-sm" style="height:1em;vertical-align:top">
+                        <i class="fa fa-qrcode fa-stack-2x" style="font-size:25px"></i>
+                    </span>
+                </button>
+                <button class="btn btn-primary mar-top-drop" style="background:none;border:none;border-left:1px solid #676767;" type="button" ng-disabled="isScanInProgress" ng-click="cancelScanQRCode()">
+                    <span class="fa-stack fa-sm" style="height:1em;vertical-align:top">
+                        <i class="fa fa-qrcode fa-stack-2x" style="font-size:25px"></i>
+                        <i class="fa fa-ban fa-stack-2x text-danger" style="font-size: 20px;left:4px"></i>
+                    </span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6" ng-controller="MapSettingCtrl" style="padding-left:0px;padding-right:5px">
+
+
+            <!--<button type="button" class="btn btn-info pull-left mar-top-drop" ng-if="iscliked && !isItemSelected && !toggleoutboxdiv" ng-click="calculateAndDisplayPriorityRoute()">Priority Routing</button>
+            <button type="button" class="btn btn-info pull-left mar-top-drop" ng-if="iscliked && !isItemSelected && !toggleoutboxdiv" ng-click="calculateAndDisplayOptimizedRoute()">Optimized Routing</button>
+            <button type="button" class="btn btn-info pull-left mar-top-drop" ng-if="!iscliked && !toggleoutboxdiv" ng-click="navigate()">Navigate</button>
+            <button type="button" class="btn btn-info pull-left mar-top-drop" ng-if="!iscliked && !toggleoutboxdiv" ng-click="clearRoute()">Clear Route</button>-->
+
+
+
+            <div class="dropdown pull-right" ng-if="isInbox || currentview=='Project'">
+                <button class="btn btn-primary dropdown-toggle mar-top-drop bordernone" onclick="$('.dropdown-backdrop1').remove();" type="button" id="mapSetStartPointDDM" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="mapSetStartPointDDM">
+
+                    <li><a class="dropdown-item" style="cursor:pointer;padding: 10px 15px;" title="Full Sync" ng-click="Sync()">Full Sync</a></li>
+                    <li class="divider dropdown-item" ng-if="isInbox"></li>
+                    <li><a class="dropdown-item" style="cursor:pointer;padding: 10px 15px;" data-toggle="modal" data-target="#setStartModal" ng-click="openPOPUpToAddStartPoint()">Start Point</a></li>
+                    <li class="divider dropdown-item" ng-if="isInbox"></li>
+                    <li><a class="dropdown-item" style="cursor:pointer;padding: 10px 15px;" data-toggle="modal" data-target="#setEndModal" ng-click="openPOPUpToAddEndPoint()">End Point</a></li>
+                    <li class="divider dropdown-item" ng-if="isInbox"></li>
+                    <li><a class="dropdown-item" style="cursor:pointer;padding: 10px 15px;" title="Eai History" ng-click="onShowEAIHistory()">Sync History</a></li>
+
+                </ul>
+            </div>
+
+            <div class="modal fade" id="setStartModal" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="closeButton">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+                            </div>
+                            <h4 class="modal-title" id="myModalLabel">Set Start Point</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="form" role="form">
+                                <div class="row">
+                                    <div class="col-sm-12 form-group" ng-class="{ 'has-error': form.address.$dirty && form.address.$error.required }">
+                                        <label>Address </label>
+                                        <input type="text" placeholder="Enter Address..." name="address" required class="form-control" ng-model="startPoint.address" />
+                                        <span ng-show="form.address.$dirty && form.address.$error.required" class="help-block">Address is required</span>
+                                    </div>
+                                </div>
+                                <div class="sm-gap"></div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label>Country </label>
+                                        <select class="form-control" placeholder="Select Country" ng-model="startPoint.selectedCountry"
+                                                ng-options="vals.country for vals in startPoint.countryList"></select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="col-sm-12 pull-right">
+                                        <button type="button" ng-disabled="form.$invalid" class="btn btn-info from-control" ng-click="setStartPoint()">Set Manual Start Point</button>
+                                        <button type="button" class="btn btn-info from-control" ng-click="clearStartPoint()">Set Current Location</button>
+                                        <button type="button" class="btn btn-info from-control" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="setEndModal" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="closeButton">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ><i class="fa fa-times"></i></button>
+                            </div>
+                            <h4 class="modal-title" id="myModalLabel">Set End Point</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="formsetendpoint" role="form">
+                                <div class="row">
+                                    <div class="col-sm-12 form-group" ng-class="{ 'has-error': formsetendpoint.address.$dirty && formsetendpoint.address.$error.required }">
+                                        <label>Address </label>
+                                        <input type="text" placeholder="Enter Address..." name="address" required class="form-control" ng-model="endPoint.address" />
+                                        <span ng-show="formsetendpoint.address.$dirty && formsetendpoint.address.$error.required" class="help-block">Address is required</span>
+                                    </div>
+                                </div>
+                                <div class="sm-gap"></div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label>Country </label>
+                                        <select class="form-control" placeholder="Select Country" ng-model="endPoint.selectedCountry"
+                                                ng-options="vals.country for vals in endPoint.countryList"></select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="col-sm-12 pull-right">
+                                        <button type="button" ng-disabled="formsetendpoint.$invalid" class="btn btn-info from-control" ng-click="setEndPoint()">Set End Point</button>
+                                        <button type="button" class="btn btn-info from-control" ng-click="clearEndPoint()">Clear End Point</button>
+                                        <button type="button" class="btn btn-info from-control" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="setPriorityPopup" ng-controller="MapMenuCtrl" role="dialog" aria-labelledby="myPriorityModalLabel" style="display: none;">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" style="font-size:27px">x</span></button>
+                            <h4 class="modal-title" id="myPriorityModalLabel">Set Route Priority</h4>
+                        </div>
+                        <div class="modal-body" style="padding:5px">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ul class="nav ul-list" ui-sortable="sortableOptions" ng-model="selectedItemsToGetRoute">
+                                        <li data-ng-repeat="x in selectedItemsToGetRoute" class="li-item">
+                                            <a style="border: 1px solid #fff;background-color:#fff">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="lab-modal">Property RSN</div>
+                                                        <div class="labData">{{x.propertyRSN}}</div>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="lab-modal">Property Address</div>
+                                                        <div class="labData">{{x.fomattedAddress}}</div>
+                                                    </div>
+                                                </div>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-12 text-left close" style="font-size:inherit!important">
+                                <span>Note: Drag up/down to set priority in accending order</span>
+                            </div>
+                            <div class="col-sm-12 pull-right">
+                                <button type="button" class="btn btn-info from-control" ng-click="continueToCalcRoute()">Continue</button>
+                                <button type="button" class="btn btn-info from-control" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="hybridRoutingModal" ng-controller="MapMenuCtrl" role="dialog" aria-labelledby="hybridRoutingSettingModal" style="display: none;">
+                <div class="modal-dialog modal-sm">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" style="font-size:27px">x</span></button>
+                            <h4 class="modal-title" id="myPriorityModalLabel">Set Hybrid Route </h4>
+                        </div>
+                        <div class="modal-body" style="padding:5px">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ul class="nav ul-list" ui-sortable="sortableOptions" ng-model="selectedItemsToGetRoute">
+                                        <li data-ng-repeat="x in selectedItemsToGetRoute" class="li-item">
+                                            <a style="border: 1px solid #fff;background-color:#fff">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="lab-modal">Make Priority</div>
+                                                        <!--<input type="checkbox" ng-model="x.isPriority" ng-click="changePriority(x)"/>-->
+                                                        <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:1px">
+                                                            <label style="font-size: 20px;padding-left:0px">
+                                                                <input type="checkbox" class="def-margin" name="addedDef" ng-checked="false" id="addedDef{{$index}}" ng-model="x.isPriority" />
+                                                                <span class="cr" id="addedDef{{$index}}" ng-class="{'activeRow': x.isPriority}"><i class="cr-icon fa fa-check"></i></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="lab-modal">Property RSN</div>
+                                                        <div class="labData">{{x.propertyRSN}}</div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="lab-modal">Property Address</div>
+                                                        <div class="labData">{{x.fomattedAddress}}</div>
+                                                    </div>
+                                                </div>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-12 text-left close" style="font-size:inherit!important">
+                                <span>Note: Drag up/down to set priority in accending order</span>
+                            </div>
+                            <div class="col-sm-12 pull-right">
+                                <button type="button" class="btn btn-info from-control" ng-click="calculateHybridRouteFinal()">Continue</button>
+                                <button type="button" class="btn btn-info from-control" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <hr style="margin: 0px; clear: both;">
+    <!--Inbox and Map-->
+    <div class="hide-row">
+        <div class="row">
+            <!--Inbox List-->
+            <div class="col-sm-6 " ng-hide="toggleinboxdiv" style="padding-left:5px;padding-right:0px">
+                <div class="scroll-2">
+                    <div class="row whiteBorder" id="swipemeinbox">
+                        <div class="col-sm-12 " ng-repeat="x in listInbox.slice(((bigInboxCurrentPage-1)*numPerPageInbox), ((bigInboxCurrentPage)*numPerPageInbox)) track by $index ">
+                            <div class="panel panel-default mar-bottom borderColor overl" ng-style="x.isFailed=='Y' && {'background-color':'#f59090'}" ng-class-even="'rowInspectionItemColor'">
+                                <div class="panel-body" style="padding:5px" ng-class="{'activeRow': x.isInboxSelected}">
+                                    <div class="row pressable-element" ng-click="SelectFolder(x,'inbox')" id="inboxItem_{{x.processRSN}}">
+                                        <div class="col-sm-{{colInfo.columns}}" ng-repeat="colInfo in selectedColumns">
+                                            <h4 ng-if="$index==0">
+                                                <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:0px">
+                                                    <label style="font-size: 22px;padding-left:0px" ng-class="{'activeRow': x.isInboxSelected}">
+                                                        <input type="checkbox" ng-disabled="x.isInboxDisabled" add-html onclick="event.stopPropagation();" ng-click="selectItemToGetRoute(x);" ng-model="x.isInboxSelected" />
+                                                        <span class="cr" ng-class="{'activeRow': x.isInboxSelected}"><i class="cr-icon fa fa-check"></i></span>
+                                                    </label>
+                                                </span>
+                                                <div style="font-size:17px;color:#333;padding-left: 40px; padding-top: 5px;" ng-class="{'activeRow': x.isInboxSelected}">{{colInfo.value=='scheduleDate'? moment(x[colInfo.value]).format(dateFormat) : x[colInfo.value]}}</div>
+                                            </h4>
+                                            <div ng-if="$index!=0">
+                                                <h5 ng-if="colInfo.text !='Process Priority' && colInfo.text !='Inspection Minute'" class="mar-bottom h5Color">{{x[colInfo.value]}}</h5>
+                                                <h5 ng-if="colInfo.text =='Process Priority' && !colInfo.isEditable" class="mar-bottom h5Color">{{x[colInfo.value]==''?'&nbsp;':x[colInfo.value]}}</h5>
+                                                <input ng-if="colInfo.text=='Process Priority' && colInfo.isEditable" placeholder="PP" ng-click="preventDefaultAction()" ng-change="updateFolderProcessPrioity(x)" type="text" class="form-control" ng-model="x[colInfo.value]" />
+                                                <h5 ng-if="colInfo.text =='Inspection Minute' && !colInfo.isEditable" class="mar-bottom h5Color">{{x[colInfo.value]==''?'&nbsp;':x[colInfo.value]}}</h5>
+                                                <input ng-if="colInfo.text=='Inspection Minute' && colInfo.isEditable" placeholder="Min." ng-click="preventDefaultAction()" ng-change="updateFolderProcessInspMin(x)" type="text" class="form-control" ng-model="x[colInfo.value]" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="navigateInboxPages" style="display: none">
+                    <div class="xs-gap"></div>
+                    <div class="col-sm-8">
+                        <uib-pagination total-items="bigTotalInboxItems" ng-model="bigInboxCurrentPage" ng-change="pageChanged()" max-size="maxInboxSize" class="pagination-sm" items-per-page="numPerPageInbox" style="margin:0px" rotate="false" boundary-links="true"></uib-pagination>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="lab" style="margin-top:5px">Per Page</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <select style="padding: 4px 6px;height: 30px;" class="form-control" id="Select1" type="text" data-placeholder="Items per page" ng-model="selectedNumPerPageInbox" 
+                                ng-change="changeInboxItemPerPage(selectedNumPerPageInbox)" ng-options="vals.text for vals in ItemsPerPageList">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--End of Inbox List-->
+            <!--Outbox List-->
+            <div class="col-sm-6" ng-hide="!toggleoutboxdiv" style="padding-left:5px;padding-right:0px">
+                <div class="scroll-2">
+                    <div class="row whiteBorder">
+                        <div class="col-sm-12" ng-repeat="x in listOutbox.slice(((bigOutboxCurrentPage-1)*numPerPageOutbox), ((bigOutboxCurrentPage)*numPerPageOutbox)) track by $index  ">
+                            <div class="panel panel-default mar-bottom borderColor overl" ng-style="x.isFailed=='Y' && {'background-color':'#f59090'}" ng-class-even="'rowInspectionItemColor'">
+                                <div class="panel-body" style="padding:5px" ng-class="{'activeRowOutbox': x.isOutboxSelected}">
+                                    <div class="row pressable-element" ng-click="SelectFolder(x,'outbox')" id="outboxItem_{{x.processRSN}}">
+                                        <div class="col-sm-{{colInfo.columns}}" ng-repeat="colInfo in selectedColumns">
+                                            <h4 ng-if="$index==0">
+                                                <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:0px">
+                                                    <label style="font-size: 22px;padding-left:0px" ng-class="{'activeRow': x.isOutboxSelected}">
+                                                        <input type="checkbox" onclick="event.stopPropagation();" ng-model="x.isOutboxSelected" />
+                                                        <span class="cr" ng-class="{'activeRow': x.isInboxSelected}"><i class="cr-icon fa fa-check"></i></span>
+                                                    </label>
+                                                </span>
+                                                <div style="font-size:17px;color:#333;padding-left: 40px; padding-top: 5px;" ng-class="{'activeRow': x.isInboxSelected}">{{x[colInfo.value]}}</div>
+                                            </h4>
+                                            <div ng-if="$index!=0">
+                                                <h5 ng-if="colInfo.text !='Process Priority'" class="mar-bottom h5Color">{{x[colInfo.value]}}</h5>
+                                                <h5 ng-if="colInfo.text =='Process Priority' && !colInfo.isEditable" class="mar-bottom h5Color">{{x[colInfo.value]}}</h5>
+                                                <input ng-if="colInfo.text=='Process Priority' && colInfo.isEditable" placeholder="PP" ng-click="preventDefaultAction()" ng-change="updateFolderProcessPrioity(x)" type="text" class="form-control" ng-model="x[colInfo.value]" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" id="navigateOutboxPages" style="display: none">
+                    <div class="xs-gap"></div>
+                    <div class="col-sm-8">
+                        <uib-pagination total-items="bigTotalOutboxItems" ng-model="bigOutboxCurrentPage"  max-size="maxOutboxSize" class="pagination-sm" items-per-page="numPerPageOutbox" style="margin:0px" rotate="false" boundary-links="true"></uib-pagination>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="lab" style="margin-top:5px">Per Page</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <select style="padding: 4px 6px;height: 30px;" class="form-control" id="Select1" type="text" data-placeholder="Items per page" ng-model="selectedNumPerPageOutbox"
+                                ng-change="changeOutboxItemPerPage(selectedNumPerPageOutbox)" ng-options="vals.text for vals in ItemsPerPageList"></select>
+                    </div>
+                </div>
+            </div>
+            <!--End of Outbox List-->
+            <!-- Start Of Search Box -->
+            <div class="col-sm-6 whiteBorder" id="searchviewcontent" ng-hide="!togglesearchsectiondiv" style="padding-left:5px;padding-right:0px">
+                <div class="row" id="searchrow">
+                    <div class="borderBottom" id="searchcriteria">
+                        <form class="lofin-box" name="form" ng-submit="onFolderSearch()" role="form">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="input-group" style="z-index: 0 !important">
+                                            <input type="text" name="searchText" id="searchText" ng-class="{ 'has-error': form.folderSearchCriteria.searchText.$dirty && form.folderSearchCriteria.searchText.$error.required }" ng-model="folderSearchCriteria.searchText" class="form-control" placeholder="Search for..." required>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" ng-click="clearSearchText()" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                            </span>
+                                        </div>
+                                        <span ng-show="form.folderSearchCriteria.searchText.$dirty && form.folderSearchCriteria.searchText.$error.required" class="help-block">Please enter data to search</span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="submit" ng-disabled="form.$invalid" id="searchButton" class="btn btn-info" value="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Search</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="xs-gap"></div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="scroll-3">
+                    <div class="row" id="searchList">
+                        <div class="col-sm-12" data-ng-repeat="x in listSearchedItems">
+                            <div class="panel panel-default mar-bottom borderColor overl" ng-class-even="'rowInspectionItemColor'">
+                                <div class="panel-body">
+
+                                    <div class="row" ng-click="selectSearchFolder(x)">
+                                        <div class="col-sm-6">
+                                            <h4>{{x.folderHeader}}</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{x.folderStatus}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p>{{x.folderRSN}} &nbsp; </p>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <p class="mar-bottom">{{x.folderName}} &nbsp; </p>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="mar-bottom">{{x.folderDesc}} &nbsp; </p>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="mar-bottom">{{x.folderDescription}} &nbsp; </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row" id="navigatePages" style="display: none">
+                    <div class="xs-gap"></div>
+                    <div class="col-sm-12">
+                        <!--<uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>-->
+                        <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" style="margin:0px" boundary-links="true"></uib-pagination>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- End Of Search Box -->
+            <!--Project View List-->
+            <div class="col-sm-6 " ng-hide="!toggleprojectview" style="padding-left:5px;padding-right:0px">
+                <div class="whiteBorder">
+                    <div class="row" id="projectviewcollapseall" ng-if="listProjectView.length>1">
+                        <div class="col-sm-3">
+                            <div data-toggle="collapse" style="padding-top:5px;padding-bottom:10px" data-parent="#accordion" ng-click="projectviewsectionall=!projectviewsectionall;collapseExpandAllProjectView(projectviewsectionall)" aria-expanded="false">
+                                <i class="fa fa-plus-square-o" ng-hide="!projectviewsectionall" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square-o" ng-hide="projectviewsectionall" aria-hidden="true"></i>
+                                <span ng-hide="projectviewsectionall">Collapse All</span>
+                                <span ng-hide="!projectviewsectionall">Expand All</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-ProjectView">
+                        <div class="col-sm-12 " ng-repeat="parent in listProjectView.slice(((bigProjectCurrentPage-1)*numPerPageProject), ((bigProjectCurrentPage)*numPerPageProject)) track by $index ">
+                            <div class="row">
+                                <div class="col-sm-12 listGrouping collapseallproject" data-toggle="collapse" id="collapse{{parent.collapseId}}" data-parent="#accordion" ng-click="singleItemProjectViewClick()"
+                                     href="#projectview{{parent.dataCollapse}}" aria-expanded="false">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <div style="color:#333; padding-top: 5px;">
+                                                <i ng-hide="projectviewsection" class="fa fa-caret-down"></i>
+                                                <i ng-hide="!projectviewsection" class="fa fa-caret-right"></i>
+                                                &nbsp;{{parent.folderNumber}}&nbsp;({{parent.key}})&nbsp;Total Min.[{{parent.totalMinCount}}]
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span class="checkbox" onclick="event.stopPropagation();" style="margin-bottom:0px;margin-top:0px">
+                                                <label style="font-size: 22px;padding-left:0px" ng-class="{'activeRow': parent.isFolderSelected}">
+                                                    <input type="checkbox" ng-disabled="parent.isFolderDisabled" add-html onclick="event.stopPropagation();" ng-click="selectFolderToGetRoute()" ng-model="parent.isFolderSelected" />
+                                                    <span class="cr" ng-class="{'activeRow': parent.isFolderSelected}"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wordalign collapse in" id="projectview{{parent.dataCollapse}}" style="padding-left:5px">
+                                    <div data-ng-repeat="x in parent.items">
+                                        <div class="panel panel-default mar-bottom borderColor overl" ng-style="x.isFailed=='Y' && {'background-color':'#f59090'}" ng-class-even="'rowInspectionItemColor'">
+                                            <div class="panel-body" style="padding:5px" ng-class="{'activeRow': x.isInboxSelected}">
+                                                <div class="row pressable-element" style="font-size:14px" ng-click="SelectFolder(x,'inbox')" id="projectView_{{x.processRSN}}">
+                                                    <div class="col-sm-{{colInfo.columns}}" ng-repeat="colInfo in selectedColumns" ng-style="($index!=0 && colInfo.text=='Process Priority' && colInfo.isEditable) ||($index!=0 && colInfo.text=='Inspection Minute' && colInfo.isEditable) && {'padding-top':'5px'}">
+                                                        <span ng-if="$index==0" style="line-height:2">
+                                                            {{x[colInfo.value]}}
+                                                        </span>
+                                                        <span style="line-height:2" ng-if="$index!=0 && colInfo.text !='Process Priority' && colInfo.text !='Inspection Minute'" class="h5Color">{{x[colInfo.value]}}</span>
+                                                        <span style="line-height:2" ng-if="$index!=0 && colInfo.text =='Process Priority' && !colInfo.isEditable" class="mar-bottom h5Color">{{x[colInfo.value]}}</span>
+                                                        <input ng-if="$index!=0 && colInfo.text=='Process Priority' && colInfo.isEditable" placeholder="PP" ng-click="preventDefaultAction()" ng-change="updateFolderProcessPrioity(x)" type="text" class="form-control" ng-model="x[colInfo.value]" />
+                                                        <span style="line-height:2" ng-if="$index!=0 && colInfo.text =='Inspection Minute' && !colInfo.isEditable" class="mar-bottom h5Color">{{x[colInfo.value]==''?'&nbsp;':x[colInfo.value]}}</span>
+                                                        <input ng-if="$index!=0 && colInfo.text=='Inspection Minute' && colInfo.isEditable" placeholder="Min." ng-click="preventDefaultAction()" ng-change="updateFolderProcessInspMin(x)" type="text" class="form-control" ng-model="x[colInfo.value]" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="sm-gap"></div>
+                        <div class="sm-gap"></div>
+                    </div>
+                    <div class="row" id="navigateProjectPages">
+                        <div class="xs-gap"></div>
+                        <div class="col-sm-8">
+                            <uib-pagination total-items="bigTotalProjectItems" ng-model="bigProjectCurrentPage" ng-change="pageChanged()" max-size="maxProjectSize" class="pagination-sm" items-per-page="numPerPageProject" style="margin:0px" rotate="false" boundary-links="true"></uib-pagination>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="lab" style="margin-top:5px">Per Page</div>
+                        </div>
+                        <div class="col-sm-2">
+                            <select style="padding: 4px 6px;height: 30px;" class="form-control" type="text" data-placeholder="Items per page" ng-model="selectedNumPerPageProject"
+                                    ng-change="changeProjectItemPerPage(selectedNumPerPageProject)" ng-options="vals.text for vals in ItemsPerPageList"></select>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <!--End of Project View List-->
+            <!--Map-->
+            <div class="col-sm-6" style="padding-left:5px" ng-show="!isDirectionSummary">
+                <div class="row">
+                    <div class="col-sm-12" ng-include src="'views/navigationmap.html'" onload="setMainHeight()"></div>
+                </div>
+            </div>
+            <div class="col-sm-6" style="padding-left:5px" ng-show="isDirectionSummary">
+                <div class="row">
+                    <div class="col-sm-11">&nbsp;</div>
+                    <div class="col-sm-1">
+                        <div class="closeButton">
+                            <button class="btn close" type="submit" ng-click="closeDirectionSummary()"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row scroll-2">
+                    <div class="col-sm-12" id="directions-panel"></div>
+                </div>
+            </div>
+            <!--End of Map-->
+        </div>
+    </div>
+    <!--End of Inbox and Map-->
+
+    <a class="well well-sm scrolltop scrollup topScrollButton" style="display: none" ng-click="scrollToTop()" id="scrolltoup">
+        <i class="glyphicon glyphicon-chevron-up" style="font-family: 'Glyphicons Halflings' Open Sans, Helvetica, Arial, sans-seril; cursor: pointer;">
+            <span style="padding-left: 4px;">Top</span>
+        </i>
+    </a>
+
+    <div class="overlayCalendarView">
+        <div class="container-fluid">
+            <div ng-include src="'views/calendar.html'">
+            </div>
+        </div>
+    </div>
+
+    <div class="overlayAddFolder">
+        <div class="col-sm-12" ng-controller="FolderCtrl" ng-include src="'views/folder.html'">
+        </div>
+    </div>
+
+    <div class="overlay">
+        <div ng-include src="'views/folderinspection.html'">
+        </div>
+        <div class="shoInbox">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="closeButton">
+                        <button class="btn close" type="submit" ng-click="closeBtn()"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="xs-gap"></div>
+            <div class="col-sm-12">
+                <div class="scroll-in">
+                    <div class="row whiteBorder">
+                        <div class="col-sm-12 " data-ng-repeat="x in listInbox">
+                            <div class="panel panel-default mar-bottom borderColor overl" ng-class-even="'rowInspectionItemColor'">
+                                <div class="panel-body">
+                                    <div class="row" ng-click="SelectFolder(x,'inboxOverlay')">
+                                        <div class="col-sm-{{colInfo.columns}}" ng-repeat="colInfo in selectedColumns">
+                                            <h4 ng-if="$index==0">{{x[colInfo.value]}}</h4>
+                                            <h5 ng-if="$index!=0" class="mar-bottom h5Color">{{x[colInfo.value]}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="inboxFieldSetting" tabindex="-1" role="dialog" aria-labelledby="columnFieldSettingModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Customize Fields</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4>Display Columns</h4>
+                            <ul class="source connected" ui-sortable="sortableOptions" ng-model="selectedColumns">
+                                <li ng-repeat="item in selectedColumns">{{item.text}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>Available Columns</h4>
+                            <ul class="source connected" ui-sortable="sortableOptions" ng-model="availableColumns">
+                                <li ng-repeat="item in availableColumns">{{item.text}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sm-gap"></div>
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-info" ng-click="resetCustomizeInboxColumn()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="inboxSortSetting" tabindex="-1" role="dialog" aria-labelledby="columnSortSettingModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Sort Order</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h4>Sort Columns</h4>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4>Asc/Desc</h4>
+                                </div>
+                            </div>
+                            <ul class="source connected" ui-sortable="sortableOptionsSorted" ng-model="selectedSortedColumns">
+                                <li ng-repeat="item in selectedSortedColumns">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            {{item.text}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="switch">
+                                                <input type="checkbox" ng-model="item.ischecked" ng-click="setAccendingDecending();">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>Available Columns</h4>
+                            <ul class="source connected" ui-sortable="sortableOptionsSorted" ng-model="availableSortedColumns">
+                                <li ng-repeat="item in availableSortedColumns">{{item.text}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sm-gap"></div>
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&nbsp;&nbsp;
+                            <button type="button" ng-click="resetInboxSortOrder()" class="btn btn-info">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myClauseModal" tabindex="-1" role="dialog"
+         aria-labelledby="modalClauseLabel"
+         ng-include src="'views/clauseModel.html'" style="z-index: 2000;">
+    </div>
+
+    <div class="modal fade" id="myeditDeficiencyModal" data-backdrop="static" tabindex="-1" role="dialog"
+         aria-labelledby="modalDeficiencyLabel" ng-include src="'views/editDeficiencyModal.html'">
+    </div>
+
+    <div class="modal fade" id="rescheduleInspectionModal" tabindex="-1" role="dialog"
+         aria-labelledby="modalInspectionLabel">
+        <div class="modal-dialog" role="document" style="width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="H1">Reschedule</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <div class="row">
+                                <div class="col-sm-12" ng-if="isReassignementEnabled">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="labData">Reassigned User</div>
+                                            <select class="form-control" ng-model="reassignedUser.selectedValidUser">
+                                                <option ng-repeat="t in validUserList" value="{{t.Value}}">{{t.Name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <pre>Reschedule date is:{{reScheduleDate}}</pre>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class='input-group mindate '>
+                                        <input type='text' class="form-control" ng-blur="changeRescheduleDate(reScheduleDate)" placeholder="{{dateFormat}}" ng-model="reScheduleDate" ng-required="true" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr />
+                                </div>
+                                <div class="col-sm-10">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-defaultGrey pull-right" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-info pull-right" ng-click="rescheduleInspection(InspectionProcessMetricsDetails)" align="right">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--ClauseModal-->
+
+    <div class="overlayEditInspection">
+        <div class="col-sm-12" ng-controller="EditInspectionCtrl" ng-include src="'views/editinspection.html'">
+        </div>
+    </div>
+    <div class="modal fade" id="infoValueModal" tabindex="-1" role="dialog" style="z-index: 2000;" aria-labelledby="modalInfoValue">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalInfoValue">Choose Info</h4>
+                </div>
+                <div class="modal-body">
+                    <form ng-submit="addInfoValue(itemFromWhere)">
+                        <div class="row">
+                            <div class="col-sm-4">Filter Info</div>
+                            <div class="col-sm-8">
+                                <input type="text" name="filterdata" ng-model="filterinfo" id="field2" class="form-control" />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">Info List</div>
+                            <div class="col-sm-8 wordalign">
+                                <ul class="listbox-info">
+                                    <li data-ng-repeat="listdata in infoValueList|filter:filterinfo">
+                                        <label ng-if="itemSelected.infotype=='MULTI_PICK' || itemSelected.infotype=='M'">
+                                            <input type="checkbox" value="{{listdata.value}}" name="infochecklist" ng-click="toggleInfoValueSelection(listdata.value,itemFromWhere)" />
+                                            {{listdata.text}}
+                                        </label>
+
+                                        <label ng-if="itemSelected.infotype=='PICK' || itemSelected.infotype=='P'">
+                                            <input type="radio" value="{{listdata.value}}" name="inforadiolist" ng-click="toggleInfoValueSelection(listdata.value,itemFromWhere)" />
+                                            {{listdata.text}}
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sm-gap"></div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info pull-right">OK</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="requestXmlModal" tabindex="-1" role="dialog" style="z-index:2000"
+         aria-labelledby="requestXmlModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="H1">Sync {{requestOrResponse}}</h4>
+                </div>
+                <div class="modal-body" id="formattedxml">
+                    <pre lang="xml" style="border:none!important">{{eaiRequestResponse}}</pre>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="mysignatureModal">
+        <div class="modal-dialog" role="document" id="signatureModalContent" style="width:600px!important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="mysignatureModal">Please Sign here</h4>
+                </div>
+                <div class="modal-body" style="padding:5px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="signature-pad">
+                                <div style="border:1px solid">
+                                    <canvas id="canvasInput" height="425" width="580"></canvas>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xs-gap"></div>
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <button type="button" class="btn btn-default" ng-click="onClearImage(InspectionProcessMetricsDetails)">Clear</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-info" ng-click="onSaveImage(InspectionProcessMetricsDetails)" data-action="save-png">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlayEAIHistory">
+        <div class="col-sm-12" ng-controller="EaiHistoryCtrl" ng-include src="'views/eaihistory.html'">
+        </div>
+    </div>
+
+
+
+</div>
+
+
+

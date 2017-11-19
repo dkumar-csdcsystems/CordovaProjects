@@ -1,0 +1,118 @@
+﻿<div class="row" id="editinspectionheader">
+    <div class="col-sm-12">
+        <div class="xs-gap"></div>
+        <div class="row">
+            <div class="col-sm-11">
+                <h4><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;Enter Inspection Result</h4>
+            </div>
+            <div class="col-sm-1 pull-right">
+                <button type="button" class="close clbtn" aria-label="Close" ng-click="closeEditInspection()"><span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="sm-gap"></div>
+                <button type="button" class="btn btn-info" ng-click="toggleFilter();">
+                    <i class="fa fa-times" ng-if="filter.hidefilter" aria-hidden="true"></i>
+                    <i class="fa fa-filter" ng-if="!filter.hidefilter" aria-hidden="true"></i>&nbsp;Filter
+                </button>
+            </div>
+            <div id="expandFilter" class="col-sm-11">
+                <div class="">
+                    <div class="col-sm-4">
+                        Folder
+                        <select class="form-control" ng-model="filter.filterfoldernumberdata">
+                            <option ng-repeat="x in folderNumberList">{{x.folderNumber}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        Process Type
+                        <select class="form-control" ng-model="filter.filterprocesstypedata">
+                            <option ng-repeat="x in processTypeList">{{x.processType}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        Process Status
+                        <select class="form-control" ng-model="filter.filterstatustypedata">
+                            <option ng-repeat="x in statusTypeList">{{x.folderStatus}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="xs-gap"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" id="editinspectioncontent">
+        <div class="panel panel-default">
+            <div class="row">
+                <div class="col-sm-5 scroll-6 verticalLine">
+                    <ul class="nav">
+                        <li style="border: 1px solid #fff;" ng-repeat="x in listInbox | filter:{folderNumber:filter.filterfoldernumberdata, processType:filter.filterprocesstypedata, folderStatus:filter.filterstatustypedata}">
+                            <div class="panel-body" style="padding:5px" ng-class="{'activeRowOutbox': x.isMultiSignOffSelected}">
+                                <div class="row">
+                                    <div class="col-sm-12" ng-click="selectCheckbox(x)">
+                                        <h4>Folder Number: {{x.folderNumber}}</h4>
+                                        <h5>Folder Type: {{x.folderType}}</h5>
+                                        <h5>Process: {{x.processType}}</h5>
+                                        <h5>Status: {{x.folderStatus}}</h5>
+                                        <h5>Schedule Date: {{x.scheduleDate}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="sm-gap"></div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="row">
+                        <div class="xs-gap"></div>
+                        <div class="col-sm-12">
+                            Attempt Result
+                            <select class="form-control" ng-options="option.name for option in attemptResultList"
+                                    ng-model="attempt.SelectedAttempResultCode"></select>
+                        </div>
+                        <div class="sm-gap"></div>
+                        <div class="col-sm-12">
+                            Attempt Comment
+                            <div class="input-group">
+                                <textarea class="form-control procAtteHeight" rows="3" ng-model="attempt.AttemptComment" id="Textarea1"></textarea>
+                                <span class="input-group-addon glyphiconHandUpBackround" data-toggle="modal" data-target="#myClauseModalEdit" ng-click="openClauseFormEditInspection('','fromAttemptComment')">
+                                    <i class="glyphicon glyphicon-hand-up"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="sm-gap"></div>
+                        <div class="col-sm-12 text-right">
+                            <button type="button" class="btn btn-info" ng-click="saveAttemptResult()"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add Attempt Result</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myClauseModalEdit" tabindex="-1" role="dialog"
+                 aria-labelledby="modalClauseLabel"
+                 ng-include src="'views/editinspectionclausemodal.html'" style="z-index: 2000;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

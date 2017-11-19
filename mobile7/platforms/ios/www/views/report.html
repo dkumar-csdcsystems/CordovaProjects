@@ -1,0 +1,158 @@
+﻿<style>
+    .a4-size {
+        height: 842px;
+        width: 595px;
+        /* to centre page on screen*/
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .a4-size-width {
+        width: 595px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .highlight-row {
+        background-color: #999999 !important;
+    }
+</style>
+
+<div class="panel panel-default">
+    <div class="panel-body  padding-l-r0">
+        <ul class="nav nav-tabs navTabULbg" role="tablist" id="reportultab">
+            <li role="presentation" class="active"><a href="#reportcatalogue" aria-controls="reportcatalogue" role="tab" data-toggle="tab">Report Catalogue</a></li>
+            <li role="presentation" ng-click="openReport()"><a href="#preview" aria-controls="preview" role="tab" data-toggle="tab">Preview</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="reportcatalogue">
+                <div class="row scroll">
+                    <div class="col-sm-12">
+                        <div class="container-fluid" style="background: #fff;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-striped table-hover table-condensed" id="tblReportList">
+                                        <thead>
+                                            <tr>
+                                                <th>Report Name</th>
+                                                <th>Description</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in reportList">
+                                                <td><a ng-click="selectReport(ProcessFolderRSN,item.reportName)" style="cursor:pointer">{{item.reportName}}</a></td>
+                                                <td>{{item.reportDesc}}</td>
+                                                <td>
+                                                    <i ng-if="item.isAttached==true" class="fa fa-trash" aria-hidden="true">&nbsp;<a ng-click="deleteReport(ProcessFolderRSN,item.reportName)" style="cursor:pointer">Remove</a></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="preview">
+                <div style="background: #fff;">
+                    <div class="modal-content" id="reporttoolbar">
+                        <div class="modal-header" style="padding:7px !important">
+                            <div class="row">
+                                <div class="col-sm-6" style="text-align: left">
+                                    <!--<button type="button"  class="btn btn-info" ng-click="printReport()">
+                                        <i class="fa fa-print" aria-hidden="true"></i>
+                                    </button>-->
+                                    <button type="button" class="btn btn-info" ng-click="backReport()">
+                                        <i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-info" ng-click="attachReport()">
+                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                    </button>
+                                    <!--<button type="button" class="btn btn-info" ng-click="emailReport()">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    </button>-->
+
+                                </div>
+                                <div class="col-sm-6" style="text-align:right;">
+                                    <div class="labData">Attachment Status:&nbsp;{{isDownloadable==true? "Attached":"Not Attached"}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="document" class="scroll">
+                        <div class="modal-content a4-size" style="background-color:#fff;" id="allReportSection">
+                            <div style="padding:15px">
+                                <div class="row">
+                                    <div class="col-sm-12 center">
+                                        <h4 class="h4color">Inspection Report</h4>
+                                    </div>
+
+                                    <div class="col-sm-12">
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="lab">Printed Date</div>
+                                                <div class="labData">{{reportList[0].printedDate}}</div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="lab">Last Modified</div>
+                                                <div class="labData">{{reportList[0].lastModified}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <hr style="margin:0px -30px 0px -30px;">
+                                            <div class="sm-gap"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="lab">Inspection Info</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="labData">{{selectedReport.folderNumber}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="labData">{{selectedReport.folderStatus}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="labData">{{selectedReport.processType}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding:15px;">
+                                <div id="displayreportsection">
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding:15px;">
+                                <div class="row">
+                                    <div class="col-sm-12" style="background-color:#fff">
+                                        <img id="inspectorSignature" style="width:150px" src="{{signatureImageData}}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+

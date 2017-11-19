@@ -1,0 +1,310 @@
+﻿<table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+    <thead>
+        <tr>
+            <th>Process Type  </th>
+            <th>Process RSN</th>
+            <th>Start Date</th>
+            <th>End Date </th>
+            <th>Status </th>
+            <th>Count </th>
+            <th>Comment </th>
+        </tr>
+    </thead>
+    <tbody style="background-color:#ffffff" ng-repeat="child in AttemptHistoryList">
+        <tr data-toggle="collapse" data-parent="#accordion" ng-click="showhiderowbtn=!showhiderowbtn;SelectHistory(child)" href="#insub{{child.processrsn}}" aria-expanded="false">
+            <td>
+                <span ng-hide="!showhiderowbtn"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                <span ng-hide="showhiderowbtn"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; {{child.processtype }}
+            </td>
+            <td>
+                {{child.processrsn}}
+            </td>
+            <td>
+                {{child.startdate}}
+            </td>
+            <td>
+                {{child.enddate}}
+            </td>
+            <td>
+                {{child.status}}
+            </td>
+            <td>
+                {{child.attemptcount}}
+            </td>
+            <td>
+                {{child.comment}}
+            </td>
+        </tr>
+        <tr class="collapse" id="insub{{child.processrsn}}">
+            <td colspan="8">
+                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                    <tbody style="background-color:#ffffff">
+                        <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showhistoryattempt=!showhistoryattempt;" href="#showhistoryattempt{{$index}}" aria-expanded="false">
+                            <td colspan="4">
+                                <span ng-hide="!showhistoryattempt"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                <span ng-hide="showhistoryattempt"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; Attempt
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="showhistoryattempt{{$index}}">
+                            <td colspan="4">
+                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                    <thead>
+                                        <tr>
+                                            <th>Attempt Result </th>
+                                            <th>Attempt Date</th>
+                                            <th>Attempt By</th>
+                                            <th>Comment </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color:#ffffff">
+                                        <tr data-ng-repeat="x in HistoryProcessAttempt">
+                                            <td>{{x.resultdesc}}</td>
+                                            <td>{{x.attemptdate}}</td>
+                                            <td>{{x.username}}</td>
+                                            <td>{{x.attemptcomment}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tr class="xs-gap"></tr>
+                    <tbody style="background-color:#ffffff">
+                        <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showhistoryDeficiency=!showhistoryDeficiency;" href="#showhistoryDeficiency{{$index}}" aria-expanded="false">
+                            <td colspan="4">
+                                <span ng-hide="!showhistoryDeficiency"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                <span ng-hide="showhistoryDeficiency"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; Deficiency
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="showhistoryDeficiency{{$index}}">
+                            <td colspan="4">
+                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                    <thead>
+                                        <tr>
+                                            <th>Deficiency Text </th>
+                                            <th>Remedy Text</th>
+                                            <th>Stamp Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color:#ffffff">
+                                        <tr data-ng-repeat="x in HistoryProcessDeficiency">
+                                            <td>{{x.deficiencytext}}</td>
+                                            <td>{{x.remedytext}}</td>
+                                            <td>{{x.stampdate}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tr class="xs-gap"></tr>
+                    <tbody style="background-color:#ffffff">
+                        <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showhistoryChecklist=!showhistoryChecklist;" href="#showhistoryChecklist{{$index}}" aria-expanded="false">
+                            <td colspan="4">
+                                <span ng-hide="!showhistoryChecklist"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                <span ng-hide="showhistoryChecklist"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; Checklist
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="showhistoryChecklist{{$index}}">
+                            <td colspan="4">
+                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                    <tbody style="background-color:#ffffff">
+                                        <tr data-ng-repeat="parent in HistoryProcessChecklistDetails">
+                                            <td colspan="5">
+                                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                    <tbody style="background-color:#ffffff">
+                                                        <tr data-toggle="collapse" data-parent="#accordion" ng-click="checklistsection=!checklistsection;" href="#checklistdetail{{parent.checklistgrouperID}}{{child.processrsn}}" aria-expanded="false">
+                                                            <td>
+                                                                <span ng-hide="!checklistsection"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                                                <span ng-hide="checklistsection"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; {{parent.key}} ({{parent.checklistItemlength}})
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="collapse" id="checklistdetail{{parent.checklistgrouperID}}{{child.processrsn}}">
+                                                            <td>
+                                                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Yes</th>
+                                                                            <th>No</th>
+                                                                            <th>N/A</th>
+                                                                            <th>Detail</th>
+                                                                            <th>Comment</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody style="background-color:#ffffff">
+                                                                        <tr data-ng-repeat="child in parent.checklistItems">
+                                                                            <td class="radioGreen" style="float: none;"><input type="radio" class="" ng-disabled="true" ng-checked="{{child.yesNoNA=='yes'}}" name="{{child.checklistcode}}" id="radioYes" /></td>
+                                                                            <td class="radioRed" style="float: none;"><input type="radio" class="" ng-disabled="true" ng-checked="{{child.yesNoNA=='no'}}" name="{{child.checklistcode}}" id="radioNo" /></td>
+                                                                            <td class="radioTrans" style="float: none;"><input type="radio" class="" ng-disabled="true" ng-checked="{{child.yesNoNA=='na'}}" name="{{child.checklistcode}}" id="radioNA" /></td>
+                                                                            <td>{{child.checklistdesc}}</td>
+                                                                            <td>{{child.comment}}</td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tr class="xs-gap"></tr>
+                    <tbody style="background-color:#ffffff">
+                        <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showhistoryProcessInfo=!showhistoryProcessInfo;" href="#showhistoryProcessInfo{{$index}}" aria-expanded="false">
+                            <td colspan="4">
+                                <span ng-hide="!showhistoryProcessInfo"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                <span ng-hide="showhistoryProcessInfo"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; Process Info
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="showhistoryProcessInfo{{$index}}">
+                            <td colspan="4">
+                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color:#ffffff">
+                                        <tr data-ng-repeat="parent in HistoryProcessInfoDetails">
+                                            <td colspan="2">
+                                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                    <tbody style="background-color:#ffffff">
+                                                        <tr data-toggle="collapse" data-parent="#accordion" ng-click="historyprocessinfosection=!historyprocessinfosection;" href="#processinfo{{parent.processCollapse}}{{$index}}" aria-expanded="false">
+                                                            <td colspan="4">
+                                                                <span ng-hide="!historyprocessinfosection"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                                                <span ng-hide="historyprocessinfosection"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; {{parent.key}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="collapse" id="processinfo{{parent.processCollapse}}{{$index}}">
+                                                            <td colspan="4">
+                                                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                                                    <tbody style="background-color:#ffffff">
+                                                                        <tr data-ng-repeat="child in parent.elements">
+                                                                            <td>
+                                                                                <span class="labData">{{child.infodesc}}</span>
+                                                                                <span ng-if="child.mandatoryflag =='Y'" style="color: red">&nbsp;┼</span>
+                                                                            </td>
+                                                                            <td ng-if="child.infotype=='ALPHA' || child.infotype=='A' ">
+                                                                                <input type="text" class="form-control" ng-disabled="true" placeholder="Enter Text or Number" ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }" />
+                                                                            </td>
+                                                                            <td ng-if="child.infotype=='URL' || child.infotype=='U'">
+                                                                                <input type="text" class="form-control" ng-disabled="true" placeholder="Enter Text or Number" ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }" />
+
+                                                                            </td>
+                                                                            <td ng-if="child.infotype=='NUMERIC' || child.infotype=='N'">
+                                                                                <input type="text" class="form-control" ng-disabled="true" value="{{child.infovalue}}" placeholder="Enter Number" ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }" />
+                                                                            </td>
+                                                                            <td ng-if="child.infotype=='SQL' || child.infotype=='S'">
+                                                                                <input type="text" class="form-control" ng-disabled="true" value="{{child.infovalue}}" placeholder="Enter Query" ng-model="child.infovalue" ng-model-options="{ updateOn: 'blur' }" />
+                                                                            </td>
+
+                                                                            <td ng-if="child.infotype=='BOOLEAN' || child.infotype=='B'">
+                                                                                <label>
+                                                                                    <input type="radio" name="{{child.infocode}}" ng-disabled="true" value="Yes" ng-model="child.infovalue" />
+                                                                                    Yes
+                                                                                </label>
+                                                                                <label>
+                                                                                    <input type="radio" name="{{child.infocode}}" ng-disabled="true" value="No" ng-model="child.infovalue" />
+                                                                                    No
+                                                                                </label>
+                                                                            </td>
+                                                                            <td ng-if="child.infotype=='DATE' || child.infotype=='D'">
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" ng-disabled="true" ng-model="child.infovalue">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                                    </span>
+                                                                                </div>
+
+                                                                            </td>
+
+                                                                            <td ng-if="child.infotype=='PICK' || child.infotype=='P'">
+                                                                                <div class="col-sm-12 colDataTopBot input-group">
+                                                                                    <textarea class="form-control" rows="1" ng-model="child.selectedValue" ng-disabled="true"></textarea>
+                                                                                    <span class="input-group-addon glyphiconHandUpBackround">
+                                                                                        <i class="glyphicon glyphicon-hand-up"></i>
+                                                                                    </span>
+                                                                                </div>
+
+                                                                            </td>
+                                                                            <td ng-if="child.infotype=='MULTI_PICK' || child.infotype=='M'">
+                                                                                <div class="col-sm-12 colDataTopBot input-group">
+                                                                                    <textarea class="form-control" ng-disabled="true" rows="1" ng-model="child.selectedValue"></textarea>
+                                                                                    <span class="input-group-addon glyphiconHandUpBackround">
+                                                                                        <i class="glyphicon glyphicon-hand-up"></i>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td ng-if="child.infotype=='CHOOSE' || child.infotype=='C'">
+                                                                                <select id="Select3" ng-disabled="true" class="form-control" type="text" placeholder="Pick Value" ng-model="options.value"
+                                                                                        ng-options="options.value for options in validprocessinfo">
+                                                                                    <option value="options.value"></option>
+                                                                                </select>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tr class="xs-gap"></tr>
+                    <tbody style="background-color:#ffffff">
+                        <tr data-toggle="collapse" class="listGrouping" data-parent="#accordion" ng-click="showhistoryComment=!showhistoryComment;" href="#showhistoryComment{{$index}}" aria-expanded="false">
+                            <td colspan="4">
+                                <span ng-hide="!showhistoryComment"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                                <span ng-hide="showhistoryComment"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>&nbsp; Comment
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="showhistoryComment{{$index}}">
+                            <td colspan="4">
+                                <table class="table table-bordered borderNone table-condensed" style="margin-bottom:0px!important;background-color:#fff">
+                                    <thead>
+                                        <tr>
+                                            <th>Stamp Date</th>
+                                            <th>Comment </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color:#ffffff">
+                                        <tr data-ng-repeat="x in HistoryInspectionComments">
+                                            <td>{{x.stampdate}}</td>
+                                            <td>{{x.comments}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+
+
+
+
+
+
+
+
+
+

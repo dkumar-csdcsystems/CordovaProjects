@@ -1,0 +1,112 @@
+﻿<div class="row">
+    <div class="col-sm-4">
+        <div class="lab">Billed Balance Due($)</div>
+        <div class="labData"> {{total.totalBalanceDue | number : 2}}</div>
+    </div>
+    
+    <div class="col-sm-4">
+        <div class="lab">Total Outstanding($)</div>
+        <div class="labData">{{total.totalLeft | number : 2}}</div>
+    </div>
+    <div class="col-sm-4">
+        <div class="lab">Total Paid($)</div>
+        <div class="labData">{{total.totalPaid | number : 2}}</div>
+    </div>
+</div>
+<!--<div class="row">
+    <div class="col-sm-4">
+        <div class="lab">Un-Billed</div>
+        <div class="labData">{{totalUnBilled}}</div>
+    </div>
+    <div class="col-sm-4">
+        <div class="lab">Post Dated</div>
+        <div class="labData">{{totalPostDated}}</div>
+    </div>
+    <div class="col-sm-4">
+        <div class="lab">NFS</div>
+        <div class="labData">{{totalNFS}}</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="lab">Void</div>
+        <div class="labData">{{totalVoid}}</div>
+    </div>
+    <div class="col-sm-4">
+        <div class="lab">Refund</div>
+        <div class="labData">{{totalRefund}}</div>
+    </div>
+    <div class="col-sm-4">
+        <div class="lab">Transfer</div>
+        <div class="labData">{{totalTransfer}}</div>
+    </div>
+</div>-->
+<div class="sm-gap"></div>
+<div class="row">
+    <div class="col-sm-1 text-bold">Fee Code</div>
+    <div class="col-sm-2 text-bold">Fee Description</div>
+    <div class="col-sm-2 text-bold">Notes</div>
+    <div class="col-sm-2 text-bold text-right">Fee Amount($)</div>
+    <div class="col-sm-2 text-bold text-right">Due Amount($)</div>
+    <div class="col-sm-2 text-bold text-right">Paid Amount($)</div>
+    <div class="col-sm-1 text-bold">Paid?</div>
+</div>
+<div data-ng-repeat="parent in folderFeeList" class="row wordalign">
+    <div class="col-sm-12 listGrouping" data-toggle="collapse" data-parent="#accordion" ng-click="folderfeesection=!folderfeesection" href="#folderfee{{parent.dataCollapse}}" aria-expanded="false">
+        
+        <div class="row">
+            <div class="col-sm-3">
+                <span ng-hide="folderfeesection"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></span>
+                <span ng-hide="!folderfeesection"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>Bill #{{parent.groupcode}} ({{parent.itemlength}})</div>
+            <div class="col-sm-3" style="color:red">Outstanding Balance ($):{{parent.indivisualOutStanding | number : 2}}</div>
+            <div class="col-sm-3">Date Generated:{{parent.dategenerated}}</div>
+            <div class="col-sm-3">Due Date:{{parent.duedate}}</div>
+        </div>
+        
+    </div>
+    <div class="col-sm-12 wordalign collapse in" id="folderfee{{parent.dataCollapse}}">
+        <div data-ng-repeat="item in parent.items">
+            <div class="row" ng-class-even="'rowInspectionItemColor'">
+                <div class="col-sm-1">
+                    {{item.feecode}}
+                </div>
+                <div class="col-sm-2">
+                    {{item.feedesc}}
+                </div>
+                <div class="col-sm-2">
+                    {{item.feecomment}}
+                </div>
+                <div class="col-sm-2 text-right">
+                    {{item.feeamount | number : 2}}
+                </div>
+                <div class="col-sm-2 text-right">
+                    {{item.feeleft | number : 2}}
+                </div>
+                <div class="col-sm-2 text-right">
+                    {{item.feeamount-item.feeleft | number : 2}}
+                </div>
+                <div class="col-sm-1">
+                    {{item.ispaid}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sm-gap"></div>
+<div class="row">
+    <div class="col-sm-1 text-bold">&nbsp;</div>
+    <div class="col-sm-2 text-bold">&nbsp;</div>
+    <div class="col-sm-2 text-bold">&nbsp;</div>
+    <div class="col-sm-2 text-bold text-right">{{total.totalBalanceDue | number : 2}}</div>
+    <div class="col-sm-2 text-bold text-right">{{total.totalLeft | number : 2}}</div>
+    <div class="col-sm-2 text-bold text-right">{{total.totalPaid | number : 2}}</div>
+    <div class="col-sm-1 text-bold">&nbsp;</div>
+</div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>
+<div class="sm-gap"></div>

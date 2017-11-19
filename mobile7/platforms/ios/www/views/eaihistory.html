@@ -1,0 +1,54 @@
+﻿<div id="eaihistoryheader" class="row">
+    <div class="col-sm-3">
+        <div class="sm-gap"></div>
+        <h4><i class="fa fa-history" aria-hidden="true"></i> Synchronization Log</h4>
+        <div class="xs-gap"></div>
+    </div>
+    <div class="col-sm-9 text-right">
+        <div class="sm-gap"></div>
+        <button type="button" class="close clbtn" aria-label="Close" ng-click="closeEaiHistoryPanel()"><span aria-hidden="true">&times;</span></button>
+        <div class="xs-gap"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <div class="panel panel-default" style="margin-bottom:0px">
+                <div class="panel-body scroll-8">
+                    <div class="row" ng-if="eaiHistoryList.length!=0">
+                        <div class="col-sm-12">
+                            <button class="btn btn-link" style="padding-left: 0px" type="button" id="addbutton" ng-click="deleteEaiHistory();">
+                                <i class="fa fa-trash"></i>&nbsp;Delete {{isAllChecked==true?'All':''}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="xs-gap"></div>
+                    <div class="row">
+                        <div class="col-sm-12" ng-if="eaiHistoryList.length!=0">
+                            <div class="row" style="border-bottom: 1px solid;padding-bottom: 8px;font-weight:600">
+                                <div class="col-xs-1"><input type="checkbox" ng-checked="isAllChecked" ng-click="checkAllEaiError()" />All</div>
+                                <div class="col-xs-1">FolderRSN</div>
+                                <div class="col-xs-1">ProcessRSN</div>
+                                <div class="col-xs-4">Xml Request</div>
+                                <div class="col-xs-3">Response</div>
+                                <div class="col-xs-2">Stamp Date</div>
+                            </div>
+                            <div class="row" ng-repeat="x in eaiHistoryList track by $index" style="border-bottom: 1px solid;padding-top:8px;padding-bottom:8px"  ng-class-even="'rowInspectionItemColor'">
+                                <div class="col-xs-1"><input type="checkbox" ng-model="x.isChecked" /></div>
+                                <div class="col-xs-1">{{x.FolderRSN}}</div>
+                                <div class="col-xs-1">{{x.ProcessRSN}}</div>
+                                <div class="col-xs-4 xmlRequestCollapse" ng-click="expandCollapseRequest(x.XmlRequest,'Request')">{{x.XmlRequest}}</div>
+                                <div class="col-xs-3 xmlRequestCollapse" ng-click="expandCollapseRequest(x.Response,'Response')">{{x.Response}}</div>
+                                <div class="col-xs-2" style="padding-right: 0px;">{{x.StampDate}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" ng-if="eaiHistoryList.length==0">
+                            No Synchronization Errors.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

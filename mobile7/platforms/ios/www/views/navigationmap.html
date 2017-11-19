@@ -1,0 +1,17 @@
+﻿<div ng-controller="MapCtrl" id="divMap">
+    <!--<map center="current-location" zoom="8"></map>-->
+    <map name="map" zoom="10" style="height:100%"></map>
+</div>
+<!--<script>
+    (function (utilService) {
+        //utilService.logtoConsole("dynamic height set..map", 'info');
+        console.info("dynamic height set..map");
+        var docHeight = $(window).height();
+        var topHeaderheight = angular.element("#topheader").height();
+        var inboxHeaderHeight = angular.element("#inboxheader").height();
+        var footerHeight = angular.element("#footer").height();
+        var heighttoset = docHeight - (topHeaderheight + inboxHeaderHeight + footerHeight);
+        angular.element("#divMap").height(heighttoset);
+        //$("map").height(heighttoset);
+    })();
+</script>-->

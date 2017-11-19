@@ -1,0 +1,55 @@
+﻿<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modalClauseLabel">Choose Clause</h4>
+        </div>
+        <div class="modal-body">
+            <form ng-submit="addClauseValueEditInspection()">
+                <input type="hidden" id="hiddenfield" value="{{fromfield}}" name="field"/>
+                <div>
+                    <div class="row">
+                        <div class="col-sm-4">Clause Group</div>
+                        <div class="col-sm-8">
+                            <select id="field1" type="text" class="form-control" ng-model="clausegroup"
+                                ng-change="changeClauseEditInspection(clausegroup)">
+                                <option data-ng-repeat="t in validclausegroup" value="{{t.key}}">{{t.key}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">Filter Clause</div>
+                        <div class="col-sm-8">
+                            <input type="text" name="filterdata" ng-model="filterclause" id="field2" class="form-control" />
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">Clause List</div>
+                        <div class="col-sm-8 listbox wordalign">
+                            <ul>
+                                <li data-ng-repeat="listdata in clauesevalue|filter:filterclause">
+                                    <label>
+                                        <input type="checkbox" value="{{listdata.clausetext}}" name="clauselist" ng-click="selectClause(listdata.clausetext)" />
+                                        {{listdata.clausetext}}
+                                                                                                          
+                                    </label>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sm-gap"></div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info pull-right">OK</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+

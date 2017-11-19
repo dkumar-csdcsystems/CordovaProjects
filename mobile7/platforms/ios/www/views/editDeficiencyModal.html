@@ -1,0 +1,104 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="H1">Edit Deficiency</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12 mar-bottom-20">
+                    Deficiency Text <span class="glyphicon glyphicon-hand-up" data-toggle="modal" data-target="#myClauseModal" ng-model="deficiencyVariables.variables.deficiencyText" ng-click="openclauseForm('', 'fromDefComment')"></span>
+                    <textarea class="form-control" rows="3" id="Textarea2" ng-model="deficiencyVariables.variables.deficiencyText" ng-change="changedDeficiencyText(deficiencyVariables.variables.deficiencyText)"></textarea>
+                </div>
+                <br />
+                <div class="col-sm-12 mar-bottom-20">
+                    Remedy Text <span class="glyphicon glyphicon-hand-up" data-toggle="modal" data-target="#myClauseModal" ng-click="openclauseForm('', 'fromRemedyComment')"></span>
+                    <textarea class="form-control" rows="3" ng-model="deficiencyVariables.variables.remedyText" ng-change="changedRemedyText(deficiencyVariables.variables.remedyText)"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mar-bottom-20">
+                    Severity
+                    <select data-ng-model="deficiencyVariables.variables.severitycode" class="form-control">
+                        <option></option>
+                        <option data-ng-repeat="t in deficiencyVariables.SeverityList" class="labData" value="{{t.code}}">{{t.description}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 mar-bottom-20">
+                    Status
+                    <select data-ng-model="deficiencyVariables.variables.statuscode" class="form-control">
+                        <option></option>
+                        <option data-ng-repeat="t in deficiencyVariables.StatusList" class="labData" value="{{t.code}}">{{t.description}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 mar-bottom-20">
+                    Location
+                    <select data-ng-model="deficiencyVariables.variables.locationdesc" class="form-control">
+                        <option></option>
+                        <option data-ng-repeat="t in deficiencyVariables.LocationList" class="labData" value="{{t.description}}">{{t.description}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mar-bottom-20">
+                    Sub Location
+                    <select data-ng-model="deficiencyVariables.variables.sublocationdesc" class="form-control">
+                        <option></option>
+                        <option data-ng-repeat="t in deficiencyVariables.LocationList" class="labData" value="{{t.description}}">{{t.description}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 mar-bottom-20">
+                    Action
+                    <select data-ng-model="deficiencyVariables.variables.actioncode" class="form-control">
+                        <option></option>
+                        <option data-ng-repeat="t in deficiencyVariables.ActionList" class="labData" value="{{t.code}}">{{t.description}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mar-bottom-20">
+                    Complied
+                    <div class='input-group date'>
+                        <input type='text' class="form-control" ng-blur="deficiencyDateChange('complieddate')"  ng-model="deficiencyVariables.variables.complied" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4 mar-bottom-20">
+                    Comply By
+                    <div class='input-group date'>
+                        <input type='text' class="form-control" ng-blur="deficiencyDateChange('complybydate')" ng-model="deficiencyVariables.variables.complyby" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4 mar-bottom-20">
+                    Insert Date
+                    <div class='input-group date'>
+                        <input type='text' class="form-control" ng-blur="deficiencyDateChange('inserteddate')" ng-model="deficiencyVariables.variables.inserted" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mar-bottom-20">
+                    Reference
+                    <input type="text" ng-model="deficiencyVariables.variables.refnumber" class="form-control" />
+                </div>
+                <div class="col-sm-4 mar-bottom-20">
+                    Occurrence
+                    <input type="text" class="form-control" ng-model="deficiencyVariables.variables.occurancecount">
+                </div>
+            </div>
+            <hr />
+            <div class="form-actions">
+                <button type="button" class="btn btn-defaultGrey" data-dismiss="modal">Cancel</button>
+                <button type="button" ng-click="onSaveEditedDeficiency(deficiencyVariables.variables)" class="btn btn-info pull-right" align="right">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

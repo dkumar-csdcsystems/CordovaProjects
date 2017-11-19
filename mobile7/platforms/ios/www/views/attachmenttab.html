@@ -1,0 +1,157 @@
+<div ng-controller="AttachmentTabCtrl">
+  
+
+        <div class="row" ng-if="!toggleplusminus">
+            <div class="col-sm-12">
+                <button class="btn btn-link" style="padding-left: 0px" type="button" id="addbutton" ng-click="addAttachment();">
+                    <i class="fa fa-plus-circle"></i>&nbsp;Add Attachment
+                </button>
+            </div>
+        </div>
+        <div class="xs-gap"></div>
+        <div ng-if="attachmentInfoList.length > 0 && !attachmentaddsection">
+            <div class="row lab">
+                <div class="col-sm-11">
+                    <div class="row">
+                        <div class="col-sm-2">Attachment RSN</div>
+                        <div class="col-sm-2">Attachment Source</div>
+                        <div class="col-sm-2">Description</div>
+                        <div class="col-sm-2">Details</div>
+                        <div class="col-sm-2">File Suffix</div>
+                        <div class="col-sm-2">File Name</div>
+                    </div>
+                </div>
+                <div class="col-sm-1">Action</div>
+            </div>
+            <div class="row wordalign" data-toggle="collapse" data-parent="#accordion" ng-repeat="parent in attachmentInfoList">
+                <div class="col-sm-12 listGrouping" ng-click="attachmentinfosection=!attachmentinfosection" href="#{{parent.dataCollapse}}" aria-expanded="false">
+                    &nbsp; <span ng-hide="!attachmentinfosection" class="fa fa-chevron-circle-down"></span>
+                    <span ng-hide="attachmentinfosection" class="fa fa-chevron-circle-right"></span>&nbsp;{{parent.key}} ({{parent.items.length}})
+                </div>
+                <div ng-hide="!attachmentinfosection" class="collapse in">
+                    <div class="wordalign" id="{{parent.dataCollapse}}">
+                        <div ng-repeat="item in parent.items">
+                            <div class="row colDataLeftRight  ">
+                                <div class="col-sm-12 colTopBot">
+                                    <div class="col-sm-11">
+                                        <div class="row">
+                                            <div class="col-sm-2"><span class="labData">{{item.attachmentrsn}}</span></div>
+                                            <div class="col-sm-2"><span class="labData">{{item.tablename}}</span></div>
+                                            <div class="col-sm-2"><span class="labData">{{item.desc}}</span></div>
+                                            <div class="col-sm-2"><span class="labData">{{item.attachmentdetail}}</span></div>
+                                            <div class="col-sm-2"><span class="labData">{{item.attachmentcontenttype}}</span></div>
+                                            <div class="col-sm-2"><span class="labData">{{item.attachmentfilealias}}</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="btn-group  pull-right">
+                                            <button type="button" class="btn btn-default optionBtnPadding dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-cog"></i><i class="fa fa-caret-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" style="cursor:pointer;padding: 10px 15px;" ng-click="openAttachment(item)"><i class="fa fa-folder-open-o"></i>&nbsp;Open</a></li>
+                                                <li class="divider dropdown-item" ng-if="item.attachmentrsn==0 "></li>
+                                                <li ng-if="item.attachmentrsn==0 "><a class="dropdown-item" style="cursor:pointer;padding: 10px 15px;" title="Eai History" ng-click="editAttachment(item)"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
+                                                <li class="divider dropdown-item" ng-if="item.attachmentrsn==0 "></li>
+                                                <li ng-if="item.attachmentrsn==0 "><a class="dropdown-item" style="cursor:pointer;padding: 10px 15px;" ng-click="deleteAttachment(item)"><i class="fa fa-trash"></i>&nbsp;Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="sm-gap"></div>
+            <div class="sm-gap"></div>
+            <div class="sm-gap"></div>
+            <div class="sm-gap"></div>
+            <div class="sm-gap"></div>
+            <div class="sm-gap"></div>        
+        </div>
+        <div ng-if="attachmentaddsection">
+            <div>
+                <div class="sm-gap"></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="lab">Attachment Type</div>
+                                <div class="labData">
+                                    <select class="form-control" ng-options="opt.Value as opt.Name for opt in attachmentTypeList" ng-model="selectedOption"></select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="lab">Description</div>
+                                <textarea class="form-control" rows="1" data-ng-model="description" id="Textarea2"></textarea>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="lab">Details</div>
+                                <textarea class="form-control" rows="1" data-ng-model="details" id="Textarea1"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="sm-gap"></div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="lab">Path</div>
+                        <div class="labData">
+                            {{selectedpath}}
+                        </div>
+                    </div>
+                </div>
+                <div class="sm-gap"></div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span class="btn btn-info col-sm-3" style="position: relative; overflow: hidden; display: inline-block;">
+                                    <i class="glyphicon glyphicon-folder-open"></i>&nbsp;
+                                    <span>Browse...</span>
+                                    <input type="file" id="i_file" accept=".doc,.docx,.pdf,.png,.jpg,.jpeg,.gif,.txt,.xls,.xlsx" style="position: absolute; top: 0; right: 0; margin: 0; opacity: 0; -ms-filter: 'alpha(opacity=0)'; font-size: 200px; direction: ltr; cursor: pointer;">
+                                </span>
+                                <div class="col-sm-1"></div>
+                                <button type="button" ng-click="onCapture('gallary')" class="btn btn-info col-sm-3">
+                                    <span class="glyphicon glyphicon-picture"></span>&nbsp;Gallery
+                                </button>
+                                <div class="col-sm-1"></div>
+                                <button type="button" ng-click="onCapture('camera')" class="btn btn-info col-sm-3">
+                                    <span class="glyphicon glyphicon-camera"></span>&nbsp;Capture
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row" style="text-align:right">
+                            <div class="col-sm-12">
+                                <button class="btn btn-defaultGrey" type="button" data-toggle="collapse" ng-click="cancelAttachment()" href="#collapsepeaddattachment" id="Button6">
+                                    Cancel
+                                </button>
+                                <button class="btn btn-info" ng-if="fromwhere=='add'" type="button" ng-click="saveAttachment(ProcessFolderRSN);savebuttonclicked=!savebuttonclicked" id="Button4">
+                                    <i class="fa fa-floppy-o"></i>&nbsp;Save
+                                </button>
+                                <button ng-if="fromwhere=='edit'" class="btn btn-info" type="button" ng-click="updateAttachment(ProcessFolderRSN)" id="Button1">
+                                    <i class="fa fa-floppy-o"></i>&nbsp;Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+
+
+
+
+
+<!--attachmentTabCtrl-->

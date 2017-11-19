@@ -1,0 +1,282 @@
+﻿<div class="row">
+    <div class="col-sm-3 hid scroll-prop" data-ng-hide="!showPropertySearchResult">
+        <ul data-ng-repeat="x in propertySearchList" class="nav">
+            <li>
+                <a href="#main" class="list-group-item" data-ng-click="onPropertySelect(x.propertyrsn)">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6>PropertyRSN: {{x.propertyrsn}}</h6>
+                            <h6>Name: {{x.name}}</h6>
+                            <h6>Address: {{x.address}}</h6>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-12" id="propertycontent">
+        <form class="lofin-box" name="form" ng-submit="onRetrieveProperty()" role="form">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="input-group" style="z-index: 0!important">
+                        <input type="text" placeholder="Search property..." name="searchText" id="searchText" ng-class="{ 'has-error': form.searchText.$dirty && form.searchText.$error.required }" ng-model="propertyFilterVariables.searchText" class="form-control" required>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="clearPropertySearchText()" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                    <span ng-show="form.searchText.$dirty && form.searchText.$error.required" class="help-block" style="color:brown">Please enter data to search</span>
+                </div>
+                <div class="col-sm-5 text-right">
+                    <button type="submit" ng-disabled="form.$invalid" id="searchButton" class="btn btn-info" value="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Search</button>
+                    <button type="button" ng-click="AcceptProperty()" data-ng-hide="!enabledisableAcceptProperty" data-toggle="collapse" href="#collapsepeProperty" class="btn btn-info">Accept </button>
+                    <button type="button" ng-click="onClearProperty()" data-toggle="collapse" href="#collapsepeProperty" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        </form>
+        <div class="sm-gap"></div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading collapsepanel" style="padding:0px 20px !important" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                        <div class="row">
+                            <h5 class="marZro">
+                                Address Details
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            House No
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyNo" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            Prefix
+                                            <select data-ng-model="propertyFilterVariables.propertyStreetPrefix" class="form-control">
+                                                <option data-ng-repeat="t in propertyStreetPrefixList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Street Name
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyStreet" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            Street Type
+                                            <select data-ng-model="propertyFilterVariables.propertyStreetType" class="form-control">
+                                                <option data-ng-repeat="t in propertyStreetTypeList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Direction
+                                            <select data-ng-model="propertyFilterVariables.propertyDirection" class="form-control">
+                                                <option data-ng-repeat="t in propertyDirectionList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            Unit Type
+
+                                            <select data-ng-model="propertyFilterVariables.propertyUnitType" class="form-control">
+                                                <option data-ng-repeat="t in propertyUnitTypeList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Unit No.
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyUnitNo" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            Status
+
+                                            <select data-ng-model="propertyFilterVariables.propertyStatus" class="form-control">
+                                                <option data-ng-repeat="t in propertyStatusList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Roll
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyRoll" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            State
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyState" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Postal/ZIP
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyPostal" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            Type
+
+                                            <select data-ng-model="propertyFilterVariables.proprtyType" class="form-control">
+                                                <option data-ng-repeat="t in proprtyTypeList" value="{{t.value}}">{{t.name}}</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Name
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyName" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            PropertyRSN
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyRSN" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading collapsepanel" style="padding:0px 20px !important" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                        <div class="row">
+                            <h5 class="marZro">
+                                Additional Details
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Plan
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyNo" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            LOT
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyLOT" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Block
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyBlock" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            X
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyX" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Y
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyY" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Sec
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertySec" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Town
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyTwn" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Rge
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyRge" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Route
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyRoute" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Cross Street
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyCrossStreet" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Parent PropertyRSN
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyParentRSN" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            FamilyRSN
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyFamilyRSN" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Zoning1
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyZoning1" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Zoning2
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyZoning2" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Zoning3
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyZoning3" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Zoning4
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyZoning4" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Zoning5
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyZoning5" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Frontage
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyFrontage" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Area
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyArea" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Depth
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyDepth" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Created On Comment
+                                            <input type="text" data-ng-model="propertyFilterVariables.propertyCreatedOnComment" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="sm-gap"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
