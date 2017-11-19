@@ -115,12 +115,14 @@ SOAPClient_cacheWsdl = new Array();
 // private: invoke async
 SOAPClient._loadWsdl = function (url, method, parameters, async, callback) {
     // load from cache?
-    var wsdl = SOAPClient_cacheWsdl[url];
+    var wsdlurl = SOAPClient._resolveWsdlUrl(url);
+
+    var wsdl = SOAPClient_cacheWsdl[wsdlurl];
     if (wsdl + "" != "" && wsdl + "" != "undefined")
         return SOAPClient._sendSoapRequest(url, method, parameters, async, callback, wsdl);
     // get wsdl
     var xmlHttp = SOAPClient._getXmlHttp();
-    xmlHttp.open("GET", url + "?wsdl", async);
+    xmlHttp.open("GET", wsdlurl, async);
     if (async) {
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4)
@@ -131,9 +133,25 @@ SOAPClient._loadWsdl = function (url, method, parameters, async, callback) {
     if (!async)
         return SOAPClient._onLoadWsdl(url, method, parameters, async, callback, xmlHttp);
 }
+
+SOAPClient._resolveWsdlUrl = function (url) {
+    var wsdlurl = "";
+    if (url.indexOf("AuthenticationService.asmx") > 0) {
+        wsdlurl = "jq/AuthenticationServiceWSDL.xml";
+    } else if (url.indexOf("SearchProvider.asmx") > 0) {
+        wsdlurl = "jq/SearchProviderWSDL.xml";
+    } else if (url.indexOf("DataUploader.asmx") > 0) {
+        wsdlurl = "jq/DataUploaderWSDL.xml";
+    } else if (url.indexOf("MetaDataProvider.asmx") > 0) {
+        wsdlurl = "jq/MetaDataProviderWSDL.xml";
+    }
+    return wsdlurl;
+}
+
 SOAPClient._onLoadWsdl = function (url, method, parameters, async, callback, req) {
     var wsdl = req.responseXML;
-    SOAPClient_cacheWsdl[url] = wsdl;	// save a copy in cache
+    var wsdlurl = SOAPClient._resolveWsdlUrl(url);
+    SOAPClient_cacheWsdl[wsdlurl] = wsdl;	// save a copy in cache
     return SOAPClient._sendSoapRequest(url, method, parameters, async, callback, wsdl);
 }
 SOAPClient._sendSoapRequest = function (url, method, parameters, async, callback, wsdl) {
